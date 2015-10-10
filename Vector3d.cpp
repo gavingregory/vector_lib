@@ -7,15 +7,13 @@ using namespace std;
 
 // TODO: divide scalar. remember to check for divide by 0.
 
-Vector3dStack::Vector3dStack(float x, float y, float z):
-  POWER(2) {
+Vector3dStack::Vector3dStack(float x, float y, float z) {
   this->x = x;
   this->y = y;
   this->z = z;
 }
 
-Vector3dStack::Vector3dStack(const Vector3dStack& copy_from):
-  POWER(2) {
+Vector3dStack::Vector3dStack(const Vector3dStack& copy_from) {
   // TODO: fill in this copy constructor
 }
 
@@ -46,30 +44,22 @@ void Vector3dStack::set_z(const float z) {
 }
 
 float Vector3dStack::get_magnitude() const {
+  static const int POWER = 2;
   return sqrt(pow(x, POWER) + pow(y, POWER) + pow(z, POWER));
 }
 
-void Vector3dStack::add(const Vector3dStack& rhs) {
-  x += rhs.get_x();
-  y += rhs.get_y();
-  z += rhs.get_z();
+Vector3dStack Vector3dStack::add(const Vector3dStack& rhs) const {
+  return Vector3dStack(x + rhs.get_x(), y + rhs.get_y(), z + rhs.get_z());
 }
 
-void Vector3dStack::subtract(const Vector3dStack& rhs) {
-  x -= rhs.get_x();
-  y -= rhs.get_y();
-  z -= rhs.get_z();
+Vector3dStack Vector3dStack::subtract(const Vector3dStack& rhs) const {
+  return Vector3dStack(x - rhs.get_x(), y - rhs.get_y(), z - rhs.get_z());
 }
 
-void Vector3dStack::multiply(const float scalar) {
-  x *= scalar;
-  y *= scalar;
-  z *= scalar;
+Vector3dStack Vector3dStack::multiply(const float scalar) const {
+  return Vector3dStack(x*scalar, y*scalar, z*scalar);
 }
 
-void Vector3dStack::divide(const float scalar) {
-  x /= scalar;
-  y /= scalar;
-  z /= scalar;
+Vector3dStack Vector3dStack::divide(const float scalar) const {
+  return Vector3dStack(x/scalar, y/scalar, z/scalar);
 }
-

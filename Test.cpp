@@ -20,24 +20,26 @@ int main() {
 
   cout << "adding v and v2.." << endl;
 
-  v.add(v2);
-  output(v);
-
-  Vector3dStack v3(1, 1, 0);
+  Vector3dStack v3 = v.add(v2);
   output(v3);
 
-  cout << "subtracting v3 from v.." << endl;
+  cout << "subtracting v2 from v.." << endl;
 
-  v.subtract(v3);
-  output(v);
+  v3 = v.subtract(v2);
+  output(v3);
 
-  v.multiply(2.0);
+  v3 = v.multiply(2.0);
   cout << "multiplying v by 2" << endl;
-  output(v);
+  output(v3);
 
-  v.divide(2);
+  v3 = v.divide(2);
   cout << "dividing v by 2" << endl;
+  output(v3);
+
+  cout << "original v, v2 should be unchanged:" << endl;
+
   output(v);
+  output(v2);
 
   return 0;
 }

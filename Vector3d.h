@@ -18,10 +18,10 @@ public:
   void set_y(const float y);
   void set_z(const float z);
   float get_magnitude() const;
-  void add(const Vector3dStack& rhs);
-  void subtract(const Vector3dStack& rhs);
-  void multiply(const float scalar);
-  void divide(const float scalar);
+  Vector3dStack add(const Vector3dStack& rhs) const;
+  Vector3dStack subtract(const Vector3dStack& rhs) const;
+  Vector3dStack multiply(const float scalar) const;
+  Vector3dStack divide(const float scalar) const;
   //TODO: scalar_product();
   //TODO: vector_product();
   //TODO: unit_vector();
@@ -29,5 +29,4 @@ public:
 
 private:
   float x, y, z;
-  const int POWER;
 };
