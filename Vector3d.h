@@ -8,17 +8,20 @@
 
 class Vector3dStack {
 public:
-  int get_x() const;
-  int get_y() const;
-  int get_z() const;
-  void set_x(const int v);
-  void set_y(const int v);
-  void set_z(const int v);
+  Vector3dStack(const float x, const float y, const float z);
+  Vector3dStack(const Vector3dStack& copy_from);
+  ~Vector3dStack();
+  float get_x() const;
+  float get_y() const;
+  float get_z() const;
+  void set_x(const float x);
+  void set_y(const float y);
+  void set_z(const float z);
   float get_magnitude() const;
-  void add(Vector3dStack rhs);
-  void subtract(Vector3dStack rhs);
-  void multiply(float scalar);
-  void divide(float scalar);
+  void add(const Vector3dStack& rhs);
+  void subtract(const Vector3dStack& rhs);
+  void multiply(const float scalar);
+  void divide(const float scalar);
   //TODO: scalar_product();
   //TODO: vector_product();
   //TODO: unit_vector();
@@ -26,4 +29,5 @@ public:
 
 private:
   float x, y, z;
+  const int POWER;
 };
