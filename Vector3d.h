@@ -22,8 +22,8 @@ public:
   Vector3dStack subtract(const Vector3dStack& rhs) const;
   Vector3dStack multiply(const float scalar) const;
   Vector3dStack divide(const float scalar) const;
-  //TODO: scalar_product();
-  //TODO: vector_product();
+  Vector3dStack vector_product(const Vector3dStack& rhs) const;
+  float scalar_product(const Vector3dStack& rhs) const;
   //TODO: unit_vector();
   //TODO: unit_vector_orthogonal(); // use vector product!
 

@@ -63,3 +63,11 @@ Vector3dStack Vector3dStack::multiply(const float scalar) const {
 Vector3dStack Vector3dStack::divide(const float scalar) const {
   return Vector3dStack(x/scalar, y/scalar, z/scalar);
 }
+
+Vector3dStack Vector3dStack::vector_product(const Vector3dStack& rhs) const {
+
+}
+
+float Vector3dStack::scalar_product(const Vector3dStack& rhs) const {
+  return ((x * rhs.get_x()) + (y * rhs.get_y()) + (z * rhs.get_z()));
+}
