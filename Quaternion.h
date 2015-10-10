@@ -6,7 +6,6 @@
 class Quaternion {
 public:
   Quaternion(const float x, const float y, const float z, const float w);
-  Quaternion(const Vector3dStack& vector, const float w);
   Quaternion(const Quaternion& copy_from);
   ~Quaternion();
   float get_x() const;
@@ -25,8 +24,7 @@ public:
   Quaternion multiply(const Quaternion& rhs) const;
   Quaternion operator*(const Quaternion& rhs) const;
 private:
-  float* w;
-  Vector3dStack* v;
+  float* w, *x, *y, *z;
 };
 
 #endif
