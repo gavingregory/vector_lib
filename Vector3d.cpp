@@ -65,9 +65,22 @@ Vector3dStack Vector3dStack::divide(const float scalar) const {
 }
 
 Vector3dStack Vector3dStack::vector_product(const Vector3dStack& rhs) const {
-
+  return Vector3dStack(
+    y*rhs.get_z() - z*rhs.get_y(),
+    z*rhs.get_x() - x*rhs.get_z(),
+    x*rhs.get_y() - y*rhs.get_x()
+  );
 }
 
 float Vector3dStack::scalar_product(const Vector3dStack& rhs) const {
   return ((x * rhs.get_x()) + (y * rhs.get_y()) + (z * rhs.get_z()));
 }
+
+Vector3dStack Vector3dStack::unit_vector() const {
+  return Vector3dStack(
+    x/get_magnitude(),
+    y/get_magnitude(),
+    z/get_magnitude()
+  );
+}
+

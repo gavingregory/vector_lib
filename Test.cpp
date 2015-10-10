@@ -36,6 +36,15 @@ int main() {
   cout << "dividing v by 2" << endl;
   output(v3);
 
+  v3 = v.vector_product(v2);
+  cout << "vector product and scalar product" << endl;
+  output(v3);
+  cout << v.scalar_product(v2) << endl;
+
+  cout << "unit vector of v" << endl;
+  v3 = v.unit_vector();
+  output(v3);
+
   cout << "original v, v2 should be unchanged:" << endl;
 
   output(v);
