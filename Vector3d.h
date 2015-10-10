@@ -25,7 +25,7 @@ public:
   Vector3dStack vector_product(const Vector3dStack& rhs) const;
   float scalar_product(const Vector3dStack& rhs) const;
   Vector3dStack unit_vector() const;
-  //TODO: unit_vector_orthogonal(); // use vector product!
+  Vector3dStack unit_vector_orthogonal(const Vector3dStack& rhs) const;
 
 private:
   float x, y, z;

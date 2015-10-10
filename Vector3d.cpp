@@ -84,3 +84,6 @@ Vector3dStack Vector3dStack::unit_vector() const {
   );
 }
 
+Vector3dStack Vector3dStack::unit_vector_orthogonal(const Vector3dStack& rhs) const {
+  return vector_product(rhs).unit_vector();
+}

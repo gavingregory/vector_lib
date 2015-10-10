@@ -12,10 +12,10 @@ int main() {
 
   cout << "Executing tests.." << endl;
 
-  Vector3dStack v(6, -2, 0.0);
+  Vector3dStack v(9, 8, 7);
   output(v);
 
-  Vector3dStack v2(-4, 4, 0.0);
+  Vector3dStack v2(12, 2, 3);
   output(v2);
 
   cout << "adding v and v2.." << endl;
@@ -44,6 +44,12 @@ int main() {
   cout << "unit vector of v" << endl;
   v3 = v.unit_vector();
   output(v3);
+
+  cout << "unit vector orthogonal v and v2" << endl;
+  Vector3dStack v4 = v.unit_vector_orthogonal(v2);
+  output(v4);
+
+  cout << v3.scalar_product(v4) << endl;
 
   cout << "original v, v2 should be unchanged:" << endl;
 
