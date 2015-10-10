@@ -1,3 +1,6 @@
+#ifndef VECTOR3D_H
+#define VECTOR3D_H
+
 //TODO: either optimise code for performance or document bottlenecks in code!
 
 class Vector3dStack {
@@ -11,7 +14,7 @@ public:
   void set_x(const float x);
   void set_y(const float y);
   void set_z(const float z);
-  float get_magnitude() const;
+  float magnitude() const;
   Vector3dStack add(const Vector3dStack& rhs) const;
   Vector3dStack operator+(const Vector3dStack& rhs) const;
   Vector3dStack subtract(const Vector3dStack& rhs) const;
@@ -30,3 +33,5 @@ public:
 private:
   float x, y, z;
 };
+
+#endif

@@ -39,7 +39,7 @@ void Vector3dStack::set_z(const float z) {
   this->z = z;
 }
 
-float Vector3dStack::get_magnitude() const {
+float Vector3dStack::magnitude() const {
   static const int POWER = 2;
   // no need to guard against negative input for sqrt, result of n^2 always positive
   return sqrt(pow(x, POWER) + pow(y, POWER) + pow(z, POWER));
@@ -101,9 +101,9 @@ float Vector3dStack::operator*(const Vector3dStack& rhs) const {
 Vector3dStack Vector3dStack::unit_vector() const {
   // TODO: guard against divide by 0?
   return Vector3dStack(
-    x/get_magnitude(),
-    y/get_magnitude(),
-    z/get_magnitude()
+    x/magnitude(),
+    y/magnitude(),
+    z/magnitude()
   );
 }
 
