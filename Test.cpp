@@ -3,34 +3,41 @@
 
 using namespace std;
 
+void output(Vector3dStack& vector) {
+  cout << "v (" << vector.get_x() << "," << vector.get_y() << "," << vector.get_z() << ") " <<
+    vector.get_magnitude() << endl;
+}
+
 int main() {
 
   cout << "Executing tests.." << endl;
 
   Vector3dStack v(6, -2, 0.0);
-  cout << "v (" << v.get_x() << "," << v.get_y() << "," << v.get_z() << ") " <<
-    v.get_magnitude() << endl;
+  output(v);
 
   Vector3dStack v2(-4, 4, 0.0);
-  cout << "v2 (" << v2.get_x() << "," << v2.get_y() << "," << v2.get_z() << ") " <<
-    v2.get_magnitude() << endl;
+  output(v2);
 
   cout << "adding v and v2.." << endl;
 
   v.add(v2);
-  cout << "new v (" << v.get_x() << "," << v.get_y() << "," << v.get_z() << ") " <<
-    v.get_magnitude() << endl;
+  output(v);
 
   Vector3dStack v3(1, 1, 0);
-  cout << "v3 (" << v3.get_x() << "," << v3.get_y() << "," << v3.get_z() << ") " <<
-    v3.get_magnitude() << endl;
+  output(v3);
 
   cout << "subtracting v3 from v.." << endl;
 
   v.subtract(v3);
-  cout << "new v(" << v.get_x() << "," << v.get_y() << "," << v.get_z() << ") " <<
-    v.get_magnitude() << endl;
+  output(v);
 
+  v.multiply(2.0);
+  cout << "multiplying v by 2" << endl;
+  output(v);
+
+  v.divide(2);
+  cout << "dividing v by 2" << endl;
+  output(v);
 
   return 0;
 }

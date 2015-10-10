@@ -60,3 +60,16 @@ void Vector3dStack::subtract(const Vector3dStack& rhs) {
   y -= rhs.get_y();
   z -= rhs.get_z();
 }
+
+void Vector3dStack::multiply(const float scalar) {
+  x *= scalar;
+  y *= scalar;
+  z *= scalar;
+}
+
+void Vector3dStack::divide(const float scalar) {
+  x /= scalar;
+  y /= scalar;
+  z /= scalar;
+}
+
