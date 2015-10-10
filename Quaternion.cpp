@@ -91,10 +91,10 @@ Quaternion Quaternion::operator - (const Quaternion& rhs) const {
 
 Quaternion Quaternion::multiply(const Quaternion& rhs) const {
   return Quaternion(
+    *w * rhs.get_z() + *x * rhs.get_y() - *y * rhs.get_x() + *z * rhs.get_w(),
     *w * rhs.get_w() - *x * rhs.get_x() - *y * rhs.get_y() - *z * rhs.get_z(),
     *w * rhs.get_x() + *x * rhs.get_w() + *y * rhs.get_z() - *z * rhs.get_y(),
-    *w * rhs.get_y() - *x * rhs.get_z() + *y * rhs.get_w() + *z * rhs.get_x(),
-    *w * rhs.get_z() + *x * rhs.get_y() - *y * rhs.get_x() + *z * rhs.get_w()
+    *w * rhs.get_y() - *x * rhs.get_z() + *y * rhs.get_w() + *z * rhs.get_x()
     );
 }
 

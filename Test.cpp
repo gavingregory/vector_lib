@@ -1,4 +1,6 @@
+#define _USE_MATH_DEFINES
 #include <iostream>
+#include <math.h>
 #include "Vector3d.h"
 #include "Quaternion.h"
 
@@ -15,15 +17,36 @@ void output(Vector3dStack& vector) {
 
 int main() {
 
-  cout << "Executing tests.." << endl;
+  Vector3dStack v = Vector3dStack(0.0, 0.0, -5.0);
+  float theta = (float)M_PI / 2.0f;
   
-  Quaternion q1 = Quaternion(1, 2, 3, 4);
-  Quaternion q2 = Quaternion(5, 4, 3, 2);
-  Quaternion q3 = q1 * q2;
-  Quaternion q4 = q2 * q1;
-  cout << q3.get_x() << " " << q3.get_y() << " " << q3.get_z() << " " << q3.get_w() << endl;
-  cout << q4.get_x() << " " << q4.get_y() << " " << q4.get_z() << " " << q4.get_w() << endl;
+  Vector3dStack axis = Vector3dStack(1, 0, 0);
+  
+  Quaternion q = Quaternion(
+    axis.get_x() * sin(theta / 2.0f),
+    axis.get_y() * sin(theta / 2.0f),
+    axis.get_z() * sin(theta / 2.0f),
+    cos(theta / 2.0f)
+  );
 
+  Quaternion w = Quaternion(
+    v.get_x(),
+    v.get_y(),
+    v.get_z(),
+    0
+    );
+
+  Quaternion qinv = Quaternion(
+    -q.get_x(),
+    -q.get_y(),
+    -q.get_z(),
+    q.get_w()
+    );
+  
+  Quaternion vRot = q * w * qinv;
+  
+  cout << "x:" << vRot.get_x() << " y:" << vRot.get_y() << " z:" << vRot.get_z() << " w:" << vRot.get_w() << endl;
+  
   /*
   Vector3dStack v(9, 8, 7);
   output(v);
