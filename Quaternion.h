@@ -3,6 +3,7 @@
 
 #include "Vector3d.h"
 #include <iostream>
+#include <cmath>
 
 class Quaternion {
 public:

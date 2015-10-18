@@ -28,7 +28,6 @@ Quaternion::~Quaternion() {
   w = x = y = z = NULL;
 }
 
-
 Quaternion& Quaternion::operator=(const Quaternion& rhs) {
   if (this == &rhs) return (*this);
 
@@ -136,18 +135,3 @@ Quaternion Quaternion::multiply(const Quaternion& rhs) const {
 Quaternion Quaternion::operator*(const Quaternion& rhs) const {
   return multiply(rhs);
 }
-
-// normalise ??? = x/magnitude, y/magnitude, z/magnitude, w/magnitude
-// SAME AS NORMALISING A VECTOR <-- google
-
-
-/* 
-  q.w component = cos(angle of rotation / 2)
-  q.x           = axis.x * sin (angle of rot / 2)
-  q.y           = axis.y * sin (angle of rot / 2)
-  q.z           = axis.z * sin (angle of rot / 2)
- 
- to rotate by a q:
-  v = q * w * invQ
- 
- */

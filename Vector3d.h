@@ -2,6 +2,7 @@
 #define VECTOR3D_H
 
 #include <iostream>
+#include <cmath>
 
 //TODO: either optimise code for performance or document bottlenecks in code!
 

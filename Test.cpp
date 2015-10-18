@@ -7,20 +7,13 @@
 
 using namespace std;
 
-/*
-void output(Vector3dStack& vector) {
-  cout << "v (" << vector.get_x() << "," << vector.get_y() << "," << vector.get_z() << ") " <<
-    vector.magnitude() << endl;
-}
-
-*/
-
 void testVectorClass();
 void testQuaternionClass();
 
 int main() {
 
   testVectorClass();
+  testQuaternionClass();
 
 
   Vector3dStack a(1.0f, 2.0f, 1.0f);
@@ -135,9 +128,8 @@ int main() {
   return 0;
 }
 
-
 void testVectorClass() {
-  
+
   float x, y, z, x2, y2, z2, scalar;
 
   /**
@@ -321,11 +313,11 @@ void testVectorClass() {
 
 void testQuaternionClass() {
 
-  float x, y, z, x2, y2, z2, scalar;
+  float x, y, z, w;
 
   /**
-  * Test that the Quaternion class constructor correctly accepts 4 float values
-  */
+   * Test that the Quaternion class constructor correctly accepts 4 float values
+   */
   Quaternion q = Quaternion(1.0f, 2.0f, 3.0f, 1.0f);
   assert(q.get_x() == 1.0f);
   assert(q.get_y() == 2.0f);
@@ -333,8 +325,8 @@ void testQuaternionClass() {
   assert(q.get_w() == 1.0f);
 
   /**
-  * Test that the Quaternion class constructor correctly accepts a copy Quaternion
-  */
+   * Test that the Quaternion class constructor correctly accepts a copy Quaternion
+   */
   Quaternion q2(q);
   assert(q2.get_x() == 1.0f);
   assert(q2.get_y() == 2.0f);
@@ -342,16 +334,16 @@ void testQuaternionClass() {
   assert(q.get_w() == 1.0f);
 
   /**
-  * Test get_x(), get_y(), get_z(), get_w()
-  */
+   * Test get_x(), get_y(), get_z(), get_w()
+   */
   assert(q.get_x() == 1.0f);
   assert(q.get_y() == 2.0f);
   assert(q.get_z() == 3.0f);
   assert(q.get_w() == 1.0f);
 
   /**
-  * Test set_x(), set_y(), set_z(), set_w()
-  */
+   * Test set_x(), set_y(), set_z(), set_w()
+   */
   q2.set_x(4.0f);
   assert(q2.get_x() == 4.0f);
   q2.set_y(5.0f);
@@ -362,21 +354,21 @@ void testQuaternionClass() {
   assert(q2.get_w() == 0.0f);
 
   /**
-  * Test operator== is correctly overriden
-  */
+   * Test operator== is correctly overriden
+   */
   assert(Quaternion(1.0f, 1.0f, 1.0f, 1.0f) == Quaternion(1.0f, 1.0f, 1.0f, 1.0f));
   assert(!(Quaternion(1.0f, 1.0f, 1.0f, 1.0f) == Quaternion(5.5f, 3.3f, 9.9f, 1.0f)));
 
 
   /**
-  * As q2 was constructed from q, test that a modified value of q2 does not modify
-  * value of v (ie pointer values *copied* correctly!)
-  */
+   * As q2 was constructed from q, test that a modified value of q2 does not modify
+   * value of v (ie pointer values *copied* correctly!)
+   */
   assert(q2.get_x() == 4.0f && q.get_x() == 1.0f);
 
   /**
-  * Test that operator= copies values correctly
-  */
+   * Test that operator= copies values correctly
+   */
   q2 = q;
   assert(q2.get_x() == 1.0f);
   assert(q2.get_y() == 2.0f);
@@ -384,9 +376,9 @@ void testQuaternionClass() {
   assert(q2.get_w() == 1.0f);
 
   /**
-  * Test that modified q2 values do not affect q (as copy constructor copies ALL private
-  * variables, any pointers NOT copied correctly would yield errors here).
-  */
+   * Test that modified q2 values do not affect q (as copy constructor copies ALL private
+   * variables, any pointers NOT copied correctly would yield errors here).
+   */
   q2.set_x(4.0f);
   assert(q.get_x() == 1.0f);
   q2.set_y(5.0f);
@@ -397,9 +389,9 @@ void testQuaternionClass() {
   assert(q.get_w() == 1.0f);
 
   /**
-  * Test add() correctly adds two quaternions
-  * Test operator+ override correctly adds two quaternions
-  */
+   * Test add() correctly adds two quaternions
+   * Test operator+ override correctly adds two quaternions
+   */
   Quaternion add = q.add(q2);
   assert(add.get_x() == (q.get_x() + q2.get_x()));
   assert(add.get_y() == (q.get_y() + q2.get_y()));
@@ -412,9 +404,19 @@ void testQuaternionClass() {
   assert(add.get_w() == (q.get_w() + q2.get_w()));
 
   /**
-  * Test subtract() correctly subtracts two quaternions
-  * Test operator- override correctly subtracts two quaternions
+  * Test the magnitude() of a Quaternion is correctly computed
   */
+  x = 3.0f;
+  y = 4.0f;
+  z = 5.0f;
+  w = 1.0f;
+  q = Quaternion(x, y, z, w);
+  assert(q.magnitude() == sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(w, 2)));
+
+  /**
+   * Test subtract() correctly subtracts two quaternions
+   * Test operator- override correctly subtracts two quaternions
+   */
   Quaternion sub = q.subtract(q2);
   assert(sub.get_x() == (q.get_x() - q2.get_x()));
   assert(sub.get_y() == (q.get_y() - q2.get_y()));
@@ -427,48 +429,65 @@ void testQuaternionClass() {
   assert(sub.get_w() == (q.get_w() - q2.get_w()));
 
   /**
-  * Test multiply() correctly computes a quaternion multiplied by another quaternion
-  * Test operator* override correctly computes a quaternion multiplication
-  */
+   * Test multiply() correctly computes a quaternion multiplied by another quaternion
+   * Test operator* override correctly computes a quaternion multiplication
+   */
   Quaternion multiply = q.multiply(q2);
-  assert(multiply.get_x() == (q.get_w() * q2.get_z()) +
-                             (q.get_x() * q2.get_y()) -
-                             (q.get_y() * q2.get_x()) +
-                             (q.get_z() * q2.get_w()));
+  assert(multiply.get_x() ==
+    (q.get_w() * q2.get_z()) +
+    (q.get_x() * q2.get_y()) -
+    (q.get_y() * q2.get_x()) +
+    (q.get_z() * q2.get_w()));
 
-  assert(multiply.get_y() == (q.get_w() * q2.get_w()) -
-                             (q.get_x() * q2.get_x()) -
-                             (q.get_y() * q2.get_y()) -
-                             (q.get_z() * q2.get_z()));
+  assert(multiply.get_y() ==
+    (q.get_w() * q2.get_w()) -
+    (q.get_x() * q2.get_x()) -
+    (q.get_y() * q2.get_y()) -
+    (q.get_z() * q2.get_z()));
 
-  assert(multiply.get_z() == (q.get_w() * q2.get_x()) +
-                             (q.get_x() * q2.get_w()) +
-                             (q.get_y() * q2.get_z()) -
-                             (q.get_z() * q2.get_y()));
+  assert(multiply.get_z() ==
+    (q.get_w() * q2.get_x()) +
+    (q.get_x() * q2.get_w()) +
+    (q.get_y() * q2.get_z()) -
+    (q.get_z() * q2.get_y()));
 
-  assert(multiply.get_w() == (q.get_w() * q2.get_y()) -
-                             (q.get_x() * q2.get_z()) +
-                             (q.get_y() * q2.get_w()) +
-                             (q.get_z() * q2.get_x()));
+  assert(multiply.get_w() ==
+    (q.get_w() * q2.get_y()) -
+    (q.get_x() * q2.get_z()) +
+    (q.get_y() * q2.get_w()) +
+    (q.get_z() * q2.get_x()));
+
   multiply = q * q2;
-  assert(multiply.get_x() == (q.get_w() * q2.get_z()) +
-                             (q.get_x() * q2.get_y()) -
-                             (q.get_y() * q2.get_x()) +
-                             (q.get_z() * q2.get_w()));
 
-  assert(multiply.get_y() == (q.get_w() * q2.get_w()) -
-                             (q.get_x() * q2.get_x()) -
-                             (q.get_y() * q2.get_y()) -
-                             (q.get_z() * q2.get_z()));
+  assert(multiply.get_x() ==
+    (q.get_w() * q2.get_z()) +
+    (q.get_x() * q2.get_y()) -
+    (q.get_y() * q2.get_x()) +
+    (q.get_z() * q2.get_w()));
 
-  assert(multiply.get_z() == (q.get_w() * q2.get_x()) +
-                             (q.get_x() * q2.get_w()) +
-                             (q.get_y() * q2.get_z()) -
-                             (q.get_z() * q2.get_y()));
+  assert(multiply.get_y() ==
+    (q.get_w() * q2.get_w()) -
+    (q.get_x() * q2.get_x()) -
+    (q.get_y() * q2.get_y()) -
+    (q.get_z() * q2.get_z()));
 
-  assert(multiply.get_w() == (q.get_w() * q2.get_y()) -
-                             (q.get_x() * q2.get_z()) +
-                             (q.get_y() * q2.get_w()) +
-                             (q.get_z() * q2.get_x()));
+  assert(multiply.get_z() ==
+    (q.get_w() * q2.get_x()) +
+    (q.get_x() * q2.get_w()) +
+    (q.get_y() * q2.get_z()) -
+    (q.get_z() * q2.get_y()));
+
+  assert(multiply.get_w() ==
+    (q.get_w() * q2.get_y()) -
+    (q.get_x() * q2.get_z()) +
+    (q.get_y() * q2.get_w()) +
+    (q.get_z() * q2.get_x()));
+
+  /**
+   * Test that quaternion multiplication is not commutative
+   */
+  Quaternion commutative1 = q * q2;
+  Quaternion commutative2 = q2 * q;
+  assert(!(commutative1 == commutative2));
 
 }

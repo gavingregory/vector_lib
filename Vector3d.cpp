@@ -1,5 +1,4 @@
 #include "Vector3d.h"
-#include <cmath>
 
 using namespace std;
 
