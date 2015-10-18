@@ -45,6 +45,17 @@ Quaternion& Quaternion::operator=(const Quaternion& rhs) {
   return *this;
 }
 
+bool Quaternion::operator==(const Quaternion& rhs) {
+  if (this == &rhs) return true;
+
+  if (this->get_x() == rhs.get_x() &&
+    this->get_y() == rhs.get_y() &&
+    this->get_z() == rhs.get_z() &&
+    this->get_w() == rhs.get_w())
+    return true;
+  return false;
+}
+
 float Quaternion::get_x() const {
   return *x;
 }

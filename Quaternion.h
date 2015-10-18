@@ -10,6 +10,7 @@ public:
   Quaternion(const Quaternion& rhs);
   ~Quaternion();
   Quaternion& operator=(const Quaternion& rhs);
+  bool operator==(const Quaternion& rhs);
   float get_x() const;
   float get_y() const;
   float get_z() const;
