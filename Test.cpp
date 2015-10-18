@@ -16,6 +16,9 @@ void testQuaternionClass();
  * NOTE REGARDING BOTTLENECKS
  * Quaternions will likely be much slower to instantiate than Vector objects as variables for
  * Quaternions are stored on the heap, and require a system call to instantiate.
+ * In fact, this could be optimised slightly by creating a single array of floats on the heap 
+ * per Quaternion object, limiting the system calls to ONE. x,y,z,w could then reference an
+ * element of this array.
  */
 int main() {
 
