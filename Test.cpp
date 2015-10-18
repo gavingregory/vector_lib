@@ -324,6 +324,12 @@ void testQuaternionClass() {
   assert(q.get_z() == 3.0f);
   assert(q.get_w() == 1.0f);
 
+  Quaternion qInt = Quaternion(5);
+  assert(qInt.get_x() == 0.0f);
+  assert(qInt.get_y() == 0.0f);
+  assert(qInt.get_z() == 0.0f);
+  assert(qInt.get_w() == 5.0f);
+
   /**
    * Test that the Quaternion class constructor correctly accepts a copy Quaternion
    */

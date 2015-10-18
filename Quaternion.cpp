@@ -18,6 +18,9 @@ Quaternion::Quaternion(const Quaternion& rhs) {
   z = new float(rhs.get_z());
 }
 
+Quaternion::Quaternion(const int w):
+  x(new float(0.0f)), y(new float(0.0f)), z(new float(0.0f)), w(new float(w)){}
+
 Quaternion::~Quaternion() {
   std::cout << "deleting quaternion (" << *w << "," << *x 
     << "," << *y << "," << *z << ")" << std::endl;

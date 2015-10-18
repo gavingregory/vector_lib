@@ -8,6 +8,7 @@
 class Quaternion {
 public:
   Quaternion(const float x, const float y, const float z, const float w);
+  Quaternion(const int w);
   Quaternion(const Quaternion& rhs);
   ~Quaternion();
   Quaternion& operator=(const Quaternion& rhs);
