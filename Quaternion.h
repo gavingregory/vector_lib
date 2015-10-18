@@ -2,12 +2,14 @@
 #define QUATERNION_H
 
 #include "Vector3d.h"
+#include <iostream>
 
 class Quaternion {
 public:
   Quaternion(const float x, const float y, const float z, const float w);
-  Quaternion(const Quaternion& copy_from);
+  Quaternion(const Quaternion& rhs);
   ~Quaternion();
+  Quaternion& operator=(const Quaternion& rhs);
   float get_x() const;
   float get_y() const;
   float get_z() const;
@@ -17,6 +19,7 @@ public:
   void set_z(const float z);
   void set_w(const float w);
   float magnitude() const;
+  friend std::ostream& operator<<(std::ostream& ostr, const Quaternion& quaternion);
   Quaternion add(const Quaternion& rhs) const;
   Quaternion operator+(const Quaternion& rhs) const;
   Quaternion subtract(const Quaternion& rhs) const;

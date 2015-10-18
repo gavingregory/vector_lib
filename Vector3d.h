@@ -1,13 +1,16 @@
 #ifndef VECTOR3D_H
 #define VECTOR3D_H
 
+#include <iostream>
+
 //TODO: either optimise code for performance or document bottlenecks in code!
 
 class Vector3dStack {
 public:
   Vector3dStack(const float x, const float y, const float z);
-  Vector3dStack(const Vector3dStack& copy_from);
+  Vector3dStack(const Vector3dStack& rhs);
   ~Vector3dStack();
+  Vector3dStack& operator=(const Vector3dStack& rhs);
   float get_x() const;
   float get_y() const;
   float get_z() const;
@@ -15,6 +18,7 @@ public:
   void set_y(const float y);
   void set_z(const float z);
   float magnitude() const;
+  friend std::ostream& operator<<(std::ostream& ostr, const Vector3dStack& vector);
   Vector3dStack add(const Vector3dStack& rhs) const;
   Vector3dStack operator+(const Vector3dStack& rhs) const;
   Vector3dStack subtract(const Vector3dStack& rhs) const;

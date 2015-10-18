@@ -7,13 +7,15 @@ x(new float(x)), y(new float(y)), z(new float(z)), w(new float(w)) {
 }
 
 /**
- * copy constructor ensures that all referenced objects get copied correctly
+ * Copy constructor is called when assigning to a new instance of object from another instance.
+ * This means it needs to create NEW variables instead of updating the old ones (as you would do
+ * overloading = operator
  */
-Quaternion::Quaternion(const Quaternion& copy_from) {
-  w = new float(copy_from.get_w());
-  x = new float(copy_from.get_x());
-  y = new float(copy_from.get_y());
-  z = new float(copy_from.get_z());
+Quaternion::Quaternion(const Quaternion& rhs) {
+  w = new float(rhs.get_w());
+  x = new float(rhs.get_x());
+  y = new float(rhs.get_y());
+  z = new float(rhs.get_z());
 }
 
 Quaternion::~Quaternion() {
@@ -24,6 +26,23 @@ Quaternion::~Quaternion() {
   delete y;
   delete z;
   w = x = y = z = NULL;
+}
+
+
+Quaternion& Quaternion::operator=(const Quaternion& rhs) {
+  if (this == &rhs) return (*this);
+
+  // release old memory
+  delete w;
+  delete x;
+  delete y;
+  delete z;
+  // assign new data
+  w = new float(rhs.get_w());
+  x = new float(rhs.get_x());
+  y = new float(rhs.get_y());
+  z = new float(rhs.get_z());
+  return *this;
 }
 
 float Quaternion::get_x() const {
@@ -63,6 +82,11 @@ float Quaternion::magnitude() const {
   // no need to guard against negative input for sqrt, result of n^2 always positive
   return sqrt(pow(*x, POWER) + pow(*y, POWER)
     + pow(*z, POWER) + pow(*w, POWER));
+}
+
+std::ostream& operator<<(std::ostream& ostr, const Quaternion& quaternion) {
+  ostr << "(w,x,y,z): (" << quaternion.get_w() << "," << quaternion.get_x() << "," << quaternion.get_y() << "," << quaternion.get_z() << ")";
+  return ostr;
 }
 
 Quaternion Quaternion::add(const Quaternion& rhs) const {
