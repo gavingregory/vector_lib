@@ -1,11 +1,15 @@
 #ifndef VECTOR3D_H
 #define VECTOR3D_H
 
+#include <fstream>
 #include <iostream>
+#include <istream>
+#include <string>
 #include <cmath>
 
-//TODO: either optimise code for performance or document bottlenecks in code!
-
+/**
+ * Defines a Vector, and provides basic Vector math operations.
+ */
 class Vector3dStack {
 public:
   Vector3dStack(const float x, const float y, const float z);
@@ -21,6 +25,7 @@ public:
   void set_z(const float z);
   float magnitude() const;
   friend std::ostream& operator<<(std::ostream& ostr, const Vector3dStack& vector);
+  friend std::istream& operator>>(std::istream& input, Vector3dStack& vector);
   Vector3dStack add(const Vector3dStack& rhs) const;
   Vector3dStack operator+(const Vector3dStack& rhs) const;
   Vector3dStack subtract(const Vector3dStack& rhs) const;

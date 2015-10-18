@@ -1,136 +1,61 @@
 #define _USE_MATH_DEFINES
 #include <iostream>
 #include <math.h>
+#include <assert.h>
 #include "Vector3d.h"
 #include "Quaternion.h"
-#include <assert.h>
 
 using namespace std;
 
 void testVectorClass();
 void testQuaternionClass();
 
+/**
+ * Main method, calls test functions and tests stream input to both Vector and Quaternion objects.
+ *
+ * NOTE REGARDING BOTTLENECKS
+ * Quaternions will likely be much slower to instantiate than Vector objects as variables for
+ * Quaternions are stored on the heap, and require a system call to instantiate.
+ */
 int main() {
 
+  cout << "Commencing testing ..." << endl;
+
   testVectorClass();
+  cout << "Vector tests completed successfully" << endl;
   testQuaternionClass();
+  cout << "Quaternion tests completed successfully" << endl;
 
+  // And finally ....
 
-  Vector3dStack a(1.0f, 2.0f, 1.0f);
+  // Test input stream
+  cout << "Please enter 3 float values for a vector (x,y,z):" << endl;
+  Vector3dStack vec = Vector3dStack(1,1,1);
+  cin >> vec;
+  cout << vec.get_x() << " " << vec.get_y() << " " << vec.get_z() << endl;
 
-  cout << a << endl;
-  Vector3dStack b(2.0f, 1.0f, 1.0f);
+  // Test output stream
+  cout << "Please enter 4 float values for a quaternion (x,y,z,w):" << endl;
+  Quaternion quat = Quaternion(1, 1, 1, 1);
+  cin >> quat;
+  cout << quat << endl;
 
-  Vector3dStack c = a.vector_product(b);
-  cout << c.get_x() << " " << c.get_y() << " " << c.get_z() << endl;
-
-  Vector3dStack v = Vector3dStack(0.0, 0.0, -5.0);
-  float theta = (float)M_PI / 2.0f;
-
-  Vector3dStack axis = Vector3dStack(1, 0, 0);
-
-  Quaternion q = Quaternion(
-    axis.get_x() * sin(theta / 2.0f),
-    axis.get_y() * sin(theta / 2.0f),
-    axis.get_z() * sin(theta / 2.0f),
-    cos(theta / 2.0f)
-    );
-
-  cout << "QUaternion COUT " << q << endl;
-
-  Quaternion w = Quaternion(
-    v.get_x(),
-    v.get_y(),
-    v.get_z(),
-    0
-    );
-
-  Quaternion qinv = Quaternion(
-    -q.get_x(),
-    -q.get_y(),
-    -q.get_z(),
-    q.get_w()
-    );
-
-  Quaternion vRot = q * w * qinv;
-
-  cout << "x:" << vRot.get_x() << " y:" << vRot.get_y() << " z:" << vRot.get_z() << " w:" << vRot.get_w() << endl;
-
-  /*
-  Vector3dStack v(9, 8, 7);
-  output(v);
-
-  Vector3dStack v2(12, 2, 3);
-  output(v2);
-
-  // Addition
-  Vector3dStack v3 = v.add(v2);
-  Vector3dStack v4 = v + v2;
-  cout << "v.add(v2)" << endl;
-  output(v3);
-  cout << "v + v2" << endl;
-  output(v4);
-
-  // Subtraction
-  v3 = v.subtract(v2);
-  v4 = v - v2;
-  cout << "v.subtract(v2)" << endl;
-  output(v3);
-  cout << "v - v2" << endl;
-  output(v4);
-
-  // Multiplication
-  v3 = v.multiply(2);
-  v4 = v * 2;
-  cout << "v.multiply(2)" << endl;
-  output(v3);
-  cout << "v * 2" << endl;
-  output(v4);
-
-  // Division
-  v3 = v.divide(2);
-  v4 = v / 2;
-  cout << "v.divide(2)" << endl;
-  output(v3);
-  cout << "v / 2" << endl;
-  output(v4);
-
-  // Vector Product
-  v3 = v.vector_product(v2);
-  v4 = v % v2;
-  cout << "v.vector_product(v2)" << endl;
-  output(v3);
-  cout << "v % v2" << endl;
-  output(v4);
-
-  // Scalar Product
-  float f = v.scalar_product(v2);
-  float f2 = v * v2;
-  cout << "v.scalar_product(v2)" << endl;
-  cout << f << endl;
-  cout << "v * v2" << endl;
-  cout << f2 << endl;
-
-  // Unit Vector
-  v3 = v.unit_vector();
-  cout << "v.unit_vector()" << endl;
-  output(v3);
-
-  // Unit Vector Orthogonal
-  v4 = v.unit_vector_orthogonal(v2);
-  cout << "v.unit_vector_orthogonal(v2)" << endl;
-  output(v4);
-
-  cout << "If unit_vector_orthogonal is correct, the following should be 0: ";
-  cout << v3.scalar_product(v4) << endl;
-  */
+  cout << "Please see testVectorClass() and testQuaternionClass() for all tests." << endl
+    << "Any failed tests will produce an error when the program is executed." << endl
+    << "Seeing this message means that all tests completed successfully!" << endl
+    << "Please note, destructor console messages for Quaternion have been left in to" << endl
+    << "assure the marker that the destructors are being called when objects go out of" << endl
+    << "scope, and therefore all heap objects are being deleted." << endl;
 
   return 0;
 }
 
+/**
+ * Contains all tests for the Vector class
+ */
 void testVectorClass() {
 
-  float x, y, z, x2, y2, z2, scalar;
+  float x, y, z, scalar;
 
   /**
    * Test that the Vector class constructor correctly accepts 3 float values
@@ -311,6 +236,9 @@ void testVectorClass() {
   assert(vOrthogonal.magnitude() >= 0.00009f && vOrthogonal.magnitude() <= 1.00001f); // magnitude should be 1 as it's a unit vector!
 }
 
+/**
+ * Contains all tests for the Quaternion class
+ */
 void testQuaternionClass() {
 
   float x, y, z, w;

@@ -5,6 +5,9 @@
 #include <iostream>
 #include <cmath>
 
+/**
+ * Defines a quaternion, and provides basic quaternion math operations.
+ */
 class Quaternion {
 public:
   Quaternion(const float x, const float y, const float z, const float w);
@@ -23,6 +26,7 @@ public:
   void set_w(const float w);
   float magnitude() const;
   friend std::ostream& operator<<(std::ostream& ostr, const Quaternion& quaternion);
+  friend std::istream& operator>>(std::istream& input, Quaternion& quaternion);
   Quaternion add(const Quaternion& rhs) const;
   Quaternion operator+(const Quaternion& rhs) const;
   Quaternion subtract(const Quaternion& rhs) const;

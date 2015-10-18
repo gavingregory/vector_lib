@@ -1,5 +1,6 @@
 #include "Quaternion.h"
-#include <iostream>
+
+#pragma region Constructors_Destructors
 
 Quaternion::Quaternion(const float x, const float y, const float z, const float w):
 x(new float(x)), y(new float(y)), z(new float(z)), w(new float(w)) {
@@ -19,7 +20,7 @@ Quaternion::Quaternion(const Quaternion& rhs) {
 }
 
 Quaternion::Quaternion(const int w):
-  x(new float(0.0f)), y(new float(0.0f)), z(new float(0.0f)), w(new float(w)){}
+  x(new float(0.0f)), y(new float(0.0f)), z(new float(0.0f)), w(new float((float)w)){}
 
 Quaternion::~Quaternion() {
   std::cout << "deleting quaternion (" << *w << "," << *x 
@@ -30,6 +31,10 @@ Quaternion::~Quaternion() {
   delete z;
   w = x = y = z = NULL;
 }
+
+#pragma endregion Constructors_Destructors
+
+#pragma region Operator_Overloads
 
 Quaternion& Quaternion::operator=(const Quaternion& rhs) {
   if (this == &rhs) return (*this);
@@ -57,6 +62,32 @@ bool Quaternion::operator==(const Quaternion& rhs) {
     return true;
   return false;
 }
+
+std::ostream& operator<<(std::ostream& ostr, const Quaternion& quaternion) {
+  ostr << "(w,x,y,z): (" << quaternion.get_w() << "," << quaternion.get_x() << "," << quaternion.get_y() << "," << quaternion.get_z() << ")";
+  return ostr;
+}
+
+std::istream& operator>>(std::istream& input, Quaternion& quaternion) {
+  input >> (*quaternion.x) >> (*quaternion.y) >> (*quaternion.z) >> (*quaternion.w);
+  return input;
+}
+
+Quaternion Quaternion::operator+(const Quaternion& rhs) const {
+  return add(rhs);
+}
+
+Quaternion Quaternion::operator - (const Quaternion& rhs) const {
+  return subtract(rhs);
+}
+
+Quaternion Quaternion::operator*(const Quaternion& rhs) const {
+  return multiply(rhs);
+}
+
+#pragma endregion Operator_Overloads
+
+#pragma region Getter_Setters
 
 float Quaternion::get_x() const {
   return *x;
@@ -90,16 +121,15 @@ void Quaternion::set_w(const float w) {
   *(this->w) = w;
 }
 
+#pragma endregion Getter_Setters
+
+#pragma region Functions
+
 float Quaternion::magnitude() const {
   static const int POWER = 2;
   // no need to guard against negative input for sqrt, result of n^2 always positive
   return sqrt(pow(*x, POWER) + pow(*y, POWER)
     + pow(*z, POWER) + pow(*w, POWER));
-}
-
-std::ostream& operator<<(std::ostream& ostr, const Quaternion& quaternion) {
-  ostr << "(w,x,y,z): (" << quaternion.get_w() << "," << quaternion.get_x() << "," << quaternion.get_y() << "," << quaternion.get_z() << ")";
-  return ostr;
 }
 
 Quaternion Quaternion::add(const Quaternion& rhs) const {
@@ -110,20 +140,12 @@ Quaternion Quaternion::add(const Quaternion& rhs) const {
     *w + rhs.get_w());
 }
 
-Quaternion Quaternion::operator+(const Quaternion& rhs) const {
-  return add(rhs);
-}
-
 Quaternion Quaternion::subtract(const Quaternion& rhs) const {
   return Quaternion(
     *x - rhs.get_x(),
     *y - rhs.get_y(),
     *z - rhs.get_z(),
     *w - rhs.get_w());
-}
-
-Quaternion Quaternion::operator - (const Quaternion& rhs) const {
-  return subtract(rhs);
 }
 
 Quaternion Quaternion::multiply(const Quaternion& rhs) const {
@@ -135,6 +157,4 @@ Quaternion Quaternion::multiply(const Quaternion& rhs) const {
     );
 }
 
-Quaternion Quaternion::operator*(const Quaternion& rhs) const {
-  return multiply(rhs);
-}
+#pragma endregion Functions
