@@ -32,6 +32,16 @@ Vector3dStack& Vector3dStack::operator=(const Vector3dStack& rhs) {
   return *this;
 }
 
+bool Vector3dStack::operator==(const Vector3dStack& rhs) {
+  if (this == &rhs) return true;
+
+  if (this->get_x() == rhs.get_x() &&
+    this->get_y() == rhs.get_y() &&
+    this->get_z() == rhs.get_z())
+    return true;
+  return false;
+}
+
 float Vector3dStack::get_x() const {
   return x;
 }
@@ -113,7 +123,7 @@ Vector3dStack Vector3dStack::operator%(const Vector3dStack& rhs) const {
 }
 
 float Vector3dStack::scalar_product(const Vector3dStack& rhs) const {
-  return ((x * rhs.get_x()) + (y * rhs.get_y()) + (z * rhs.get_z()));
+  return (float)((x * rhs.get_x()) + (y * rhs.get_y()) + (z * rhs.get_z()));
 }
 
 float Vector3dStack::operator*(const Vector3dStack& rhs) const {

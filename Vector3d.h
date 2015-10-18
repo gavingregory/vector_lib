@@ -11,6 +11,7 @@ public:
   Vector3dStack(const Vector3dStack& rhs);
   ~Vector3dStack();
   Vector3dStack& operator=(const Vector3dStack& rhs);
+  bool operator==(const Vector3dStack& rhs);
   float get_x() const;
   float get_y() const;
   float get_z() const;

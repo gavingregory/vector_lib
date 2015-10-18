@@ -22,11 +22,13 @@ int main() {
 
   testVectorClass();
 
-  Vector3dStack a(0.0f, 1.0f, 0.0f);
+
+  Vector3dStack a(1.0f, 2.0f, 1.0f);
 
   cout << a << endl;
-  Vector3dStack b(1.0f, 0.0f, 0.0f);
-  Vector3dStack c = a + b;
+  Vector3dStack b(2.0f, 1.0f, 1.0f);
+
+  Vector3dStack c = a.vector_product(b);
   cout << c.get_x() << " " << c.get_y() << " " << c.get_z() << endl;
 
   Vector3dStack v = Vector3dStack(0.0, 0.0, -5.0);
@@ -136,6 +138,8 @@ int main() {
 
 void testVectorClass() {
   
+  float x, y, z, x2, y2, z2, scalar;
+
   /**
    * Test that the Vector class constructor correctly accepts 3 float values
    */
@@ -170,6 +174,13 @@ void testVectorClass() {
   assert(v2.get_z() == 6.0f);
 
   /**
+   * Test operator== is correctly overriden
+   */
+  assert(Vector3dStack(1.0f, 1.0f, 1.0f) == Vector3dStack(1.0f, 1.0f, 1.0f));
+  assert(!(Vector3dStack(1.0f, 1.0f, 1.0f) == Vector3dStack(5.5f, 3.3f, 9.9f)));
+
+
+  /**
    * As v2 was constructed from v, test that a modified value of v2 does not modify
    * value of v (ie values *copied* correctly!)
    */
@@ -198,29 +209,114 @@ void testVectorClass() {
    * Test add() correctly adds two vectors
    * Test operator+ override correctly adds two vectors
    */
-  Vector3dStack v3 = v.add(v2);
-  assert(v3.get_x() == (v.get_x() + v2.get_x()));
-  assert(v3.get_y() == (v.get_y() + v2.get_y()));
-  assert(v3.get_z() == (v.get_z() + v2.get_z()));
+  Vector3dStack vAdd = v.add(v2);
+  assert(vAdd.get_x() == (v.get_x() + v2.get_x()));
+  assert(vAdd.get_y() == (v.get_y() + v2.get_y()));
+  assert(vAdd.get_z() == (v.get_z() + v2.get_z()));
   Vector3dStack v4 = v + v2;
-  assert(v4.get_x() == (v.get_x() + v2.get_x()));
-  assert(v4.get_y() == (v.get_y() + v2.get_y()));
-  assert(v4.get_z() == (v.get_z() + v2.get_z()));
+  assert(vAdd.get_x() == (v.get_x() + v2.get_x()));
+  assert(vAdd.get_y() == (v.get_y() + v2.get_y()));
+  assert(vAdd.get_z() == (v.get_z() + v2.get_z()));
 
   /**
    * Test the magnitude() of a Vector is correctly computed
    */
-  float x = 3.0f;
-  float y = 4.0f;
-  float z = 5.0f;
+  x = 3.0f;
+  y = 4.0f;
+  z = 5.0f;
   v.set_x(x); // reset x
   v.set_y(y); // reset y
   v.set_z(z); // reset z
   assert(v.magnitude() == sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)));
 
+  /**
+   * Test subtract() correctly subtracts two vectors
+   * Test operator- override correctly subtracts two vectors
+   */
+  Vector3dStack vSubtract = v.subtract(v2);
+  assert(vSubtract.get_x() == (v.get_x() - v2.get_x()));
+  assert(vSubtract.get_y() == (v.get_y() - v2.get_y()));
+  assert(vSubtract.get_z() == (v.get_z() - v2.get_z()));
+  vSubtract = v - v2;
+  assert(vSubtract.get_x() == (v.get_x() - v2.get_x()));
+  assert(vSubtract.get_y() == (v.get_y() - v2.get_y()));
+  assert(vSubtract.get_z() == (v.get_z() - v2.get_z()));
+
+  /**
+   * Test multiply() correctly computes a vector multiplied by a scalar value
+   * Test operator* override correctly computes a vector multiplied by a scalar value
+   */
+  scalar = 2.0f;
+  Vector3dStack vMultiply = v.multiply(scalar);
+  assert(vMultiply.get_x() == (v.get_x() * scalar));
+  assert(vMultiply.get_y() == (v.get_y() * scalar));
+  assert(vMultiply.get_z() == (v.get_z() * scalar));
+  vMultiply = v * scalar;
+  assert(vMultiply.get_x() == (v.get_x() * scalar));
+  assert(vMultiply.get_y() == (v.get_y() * scalar));
+  assert(vMultiply.get_z() == (v.get_z() * scalar));
+
+  /**
+   * Test divide() correctly computes a vector divided by a scalar value
+   * Test operator/ override correctly computes a vector divided by a scalar value
+   */
+  scalar = 2.0f;
+  Vector3dStack vDivide = v.divide(scalar);
+  assert(vDivide.get_x() == (v.get_x() / scalar));
+  assert(vDivide.get_y() == (v.get_y() / scalar));
+  assert(vDivide.get_z() == (v.get_z() / scalar));
+  vDivide = v / scalar;
+  assert(vDivide.get_x() == (v.get_x() / scalar));
+  assert(vDivide.get_y() == (v.get_y() / scalar));
+  assert(vDivide.get_z() == (v.get_z() / scalar));
+
+  /**
+   * Test vector_product() correctly computes a vector product  of two vectors
+   * Test operator% override correctly computes a vector product of two vectors
+   */
+  Vector3dStack vProduct = v.vector_product(v2);
+  assert(vProduct.get_x() == (v.get_y() * v2.get_z()) - (v.get_z() * v2.get_y()));
+  assert(vProduct.get_y() == (v.get_z() * v2.get_x()) - (v.get_x() * v2.get_z()));
+  assert(vProduct.get_z() == (v.get_x() * v2.get_y()) - (v.get_y() * v2.get_x()));
+  vProduct = v % v2;
+  assert(vProduct.get_x() == (v.get_y() * v2.get_z()) - (v.get_z() * v2.get_y()));
+  assert(vProduct.get_y() == (v.get_z() * v2.get_x()) - (v.get_x() * v2.get_z()));
+  assert(vProduct.get_z() == (v.get_x() * v2.get_y()) - (v.get_y() * v2.get_x()));
+
+  /**
+   * Test scalar_product() correctly computes a scalar product  of two vectors
+   * Test operator* override correctly computes a scalar product of two vectors
+   */
+  float result = v.scalar_product(v2);
+  assert(result ==
+    (v.get_x() * v2.get_x()) +
+    (v.get_y() * v2.get_y()) +
+    (v.get_z() * v2.get_z())
+    );
+  result = v * v2;
+  assert(result ==
+    (v.get_x() * v2.get_x()) +
+    (v.get_y() * v2.get_y()) +
+    (v.get_z() * v2.get_z())
+    );
+
+  /**
+  * Test unit_vector() correctly returns a valid unit vector
+  */
+  Vector3dStack unitVector = v.unit_vector();
+  assert(unitVector.get_x() == v.get_x() / v.magnitude());
+  assert(unitVector.get_y() == v.get_y() / v.magnitude());
+  assert(unitVector.get_z() == v.get_z() / v.magnitude());
+  assert(unitVector.magnitude() == 1.0f); // a unit vector must == 1.0f!
 
 
-
+  /**
+   * Test unit_vector_orthogonal() correctly returns a valid unit vector which is orthogonal
+   */
+  Vector3dStack vOrthogonal = v.unit_vector_orthogonal(v2);
+  assert(v.scalar_product(vOrthogonal) == 0); // scalar product should be 0 if orthogonal!
+  assert(v2.scalar_product(vOrthogonal) == 0); // scalar product should be 0 if orthogonal!
+  assert(vOrthogonal.magnitude() >= 0.00009f && vOrthogonal.magnitude() <= 1.00001f); // magnitude should be 1 as it's a unit vector!
 }
 
 void testQuaternionClass() {
