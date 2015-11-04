@@ -21,8 +21,11 @@ void testQuaternionClass();
  * element of this array.
  * Originally I had methods such as add(), subtract() and these functions were called from the
  * operator overloads such as operator+(). These were removed to avoid a second unnecessary
- * function call.
- * operator<< 
+ * function call. These functions have been left in for SOME functions however, such as Vector3d's
+ * operator% which returns the results of vector_product(). This is to expose human readable
+ * functions that may be less confusing than operator% (if preferred).
+ * operator<< and operator>> overloads and declared friends and can therefore access variables
+ * directly, avoiding a function call to getter methods.
  */
 int main() {
 
@@ -39,10 +42,10 @@ int main() {
   cout << "Please enter 3 float values for a vector (x,y,z):" << endl;
   Vector3dStack vec = Vector3dStack(1,1,1);
   cin >> vec;
-  cout << vec.get_x() << " " << vec.get_y() << " " << vec.get_z() << endl;
+  cout << vec << endl;
 
   // Test output stream
-  cout << "Please enter 4 float values for a quaternion (x,y,z,w):" << endl;
+  cout << "Please enter 4 float values for a quaternion (w,x,y,z):" << endl;
   Quaternion quat = Quaternion(1, 1, 1, 1);
   cin >> quat;
   cout << quat << endl;

@@ -25,8 +25,8 @@ Quaternion::Quaternion(const int w):
   x(new float(0.0f)), y(new float(0.0f)), z(new float(0.0f)), w(new float((float)w)){}
 
 Quaternion::~Quaternion() {
-  std::cout << "deleting quaternion (" << *w << "," << *x 
-    << "," << *y << "," << *z << ")" << std::endl;
+  // uncomment the following line to observe when quaternions are being deconstructed:
+  std::cout << "deleting quaternion" << *this << std::endl;
   delete w;
   delete x;
   delete y;
@@ -66,12 +66,12 @@ bool Quaternion::operator==(const Quaternion& rhs) {
 }
 
 std::ostream& operator<<(std::ostream& ostr, const Quaternion& quaternion) {
-  ostr << "(w,x,y,z): (" << quaternion.w << "," << quaternion.x << "," << quaternion.y << "," << quaternion.z << ")";
+  ostr << "(w,x,y,z): (" << *quaternion.w << "," << *quaternion.x << "," << *quaternion.y << "," << *quaternion.z << ")";
   return ostr;
 }
 
 std::istream& operator>>(std::istream& input, Quaternion& quaternion) {
-  input >> (*quaternion.x) >> (*quaternion.y) >> (*quaternion.z) >> (*quaternion.w);
+  input >> (*quaternion.w) >> (*quaternion.x) >> (*quaternion.y) >> (*quaternion.z);
   return input;
 }
 
