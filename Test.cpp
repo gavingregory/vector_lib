@@ -19,6 +19,10 @@ void testQuaternionClass();
  * In fact, this could be optimised slightly by creating a single array of floats on the heap 
  * per Quaternion object, limiting the system calls to ONE. x,y,z,w could then reference an
  * element of this array.
+ * Originally I had methods such as add(), subtract() and these functions were called from the
+ * operator overloads such as operator+(). These were removed to avoid a second unnecessary
+ * function call.
+ * operator<< 
  */
 int main() {
 
@@ -59,6 +63,15 @@ int main() {
 void testVectorClass() {
 
   float x, y, z, scalar;
+
+  /**
+   * Test that the Vector default constructor class correctly defaults all
+   * values to 0.0f.
+   */
+  Vector3dStack def = Vector3dStack();
+  assert(def.get_x() == 0.0f);
+  assert(def.get_y() == 0.0f);
+  assert(def.get_z() == 0.0f);
 
   /**
    * Test that the Vector class constructor correctly accepts 3 float values
@@ -225,6 +238,16 @@ void testVectorClass() {
 void testQuaternionClass() {
 
   float x, y, z, w;
+
+  /**
+  * Test that the Quaternion default constructor class correctly defaults all
+  * values to 0.0f.
+  */
+  Quaternion def = Quaternion();
+  assert(def.get_x() == 0.0f);
+  assert(def.get_y() == 0.0f);
+  assert(def.get_z() == 0.0f);
+  assert(def.get_w() == 0.0f);
 
   /**
    * Test that the Quaternion class constructor correctly accepts 4 float values

@@ -2,10 +2,12 @@
 
 #pragma region Constructors_Destructors
 
-Quaternion::Quaternion(const float x, const float y, const float z, const float w):
-x(new float(x)), y(new float(y)), z(new float(z)), w(new float(w)) {
+// default constructor
+Quaternion::Quaternion(): x(new float(0.0f)), y(new float(0.0f)), z(new float(0.0f)), w(new float(0.0f)) { }
 
-}
+// constructor that takes x,y,z,w parameters
+Quaternion::Quaternion(const float x, const float y, const float z, const float w):
+x(new float(x)), y(new float(y)), z(new float(z)), w(new float(w)) { }
 
 /**
  * Copy constructor is called when assigning to a new instance of object from another instance.
@@ -64,7 +66,7 @@ bool Quaternion::operator==(const Quaternion& rhs) {
 }
 
 std::ostream& operator<<(std::ostream& ostr, const Quaternion& quaternion) {
-  ostr << "(w,x,y,z): (" << quaternion.get_w() << "," << quaternion.get_x() << "," << quaternion.get_y() << "," << quaternion.get_z() << ")";
+  ostr << "(w,x,y,z): (" << quaternion.w << "," << quaternion.x << "," << quaternion.y << "," << quaternion.z << ")";
   return ostr;
 }
 

@@ -10,6 +10,7 @@
  */
 class Quaternion {
 public:
+  Quaternion();
   Quaternion(const float x, const float y, const float z, const float w);
   Quaternion(const int w);
   Quaternion(const Quaternion& rhs);

@@ -51,7 +51,7 @@ bool Vector3dStack::operator==(const Vector3dStack& rhs) {
 }
 
 std::ostream& operator<<(std::ostream& ostr, const Vector3dStack& vector) {
-  ostr << "(x,y,z): (" << vector.get_x() << "," << vector.get_y() << "," << vector.get_z() << ")";
+  ostr << "(x,y,z): (" << vector.x << "," << vector.y << "," << vector.z << ")";
   return ostr;
 }
 
