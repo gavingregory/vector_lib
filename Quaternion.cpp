@@ -38,6 +38,7 @@ Quaternion::~Quaternion() {
 
 #pragma region Operator_Overloads
 
+// assignment operator
 Quaternion& Quaternion::operator=(const Quaternion& rhs) {
   if (this == &rhs) return (*this);
 
@@ -54,6 +55,7 @@ Quaternion& Quaternion::operator=(const Quaternion& rhs) {
   return *this;
 }
 
+// 
 bool Quaternion::operator==(const Quaternion& rhs) {
   if (this == &rhs) return true;
 

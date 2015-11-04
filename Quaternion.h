@@ -32,7 +32,7 @@ public:
   Quaternion operator-(const Quaternion& rhs) const;
   Quaternion operator*(const Quaternion& rhs) const;
 private:
-  float* w, *x, *y, *z;
+  float *w, *x, *y, *z;
 };
 
 #endif

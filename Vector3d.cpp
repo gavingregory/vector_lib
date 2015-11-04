@@ -34,18 +34,18 @@ Vector3dStack& Vector3dStack::operator=(const Vector3dStack& rhs) {
   if (this == &rhs) return (*this);
 
   // assign new data
-  x = rhs.get_x();
-  y = rhs.get_y();
-  z = rhs.get_z();
+  x = rhs.x;
+  y = rhs.y;
+  z = rhs.z;
   return *this;
 }
 
 bool Vector3dStack::operator==(const Vector3dStack& rhs) {
   if (this == &rhs) return true;
 
-  if (this->get_x() == rhs.get_x() &&
-    this->get_y() == rhs.get_y() &&
-    this->get_z() == rhs.get_z())
+  if (this->x == rhs.x &&
+    this->y == rhs.y &&
+    this->z == rhs.z)
     return true;
   return false;
 }
@@ -61,11 +61,11 @@ std::istream& operator>>(std::istream& input, Vector3dStack& vector) {
 }
 
 Vector3dStack Vector3dStack::operator+(const Vector3dStack& rhs) const {
-  return Vector3dStack(x + rhs.get_x(), y + rhs.get_y(), z + rhs.get_z());
+  return Vector3dStack(x + rhs.x, y + rhs.y, z + rhs.z);
 }
 
 Vector3dStack Vector3dStack::operator-(const Vector3dStack& rhs) const {
-  return Vector3dStack(x - rhs.get_x(), y - rhs.get_y(), z - rhs.get_z());
+  return Vector3dStack(x - rhs.x, y - rhs.y, z - rhs.z);
 }
 
 Vector3dStack Vector3dStack::operator*(const float scalar) const {
@@ -126,14 +126,14 @@ float Vector3dStack::magnitude() const {
 
 Vector3dStack Vector3dStack::vector_product(const Vector3dStack& rhs) const {
   return Vector3dStack(
-    y*rhs.get_z() - z*rhs.get_y(),
-    z*rhs.get_x() - x*rhs.get_z(),
-    x*rhs.get_y() - y*rhs.get_x()
+    y*rhs.z - z*rhs.y,
+    z*rhs.x - x*rhs.z,
+    x*rhs.y - y*rhs.x
     );
 }
 
 float Vector3dStack::scalar_product(const Vector3dStack& rhs) const {
-  return (float)((x * rhs.get_x()) + (y * rhs.get_y()) + (z * rhs.get_z()));
+  return (float)((x * rhs.x) + (y * rhs.y) + (z * rhs.z));
 }
 
 Vector3dStack Vector3dStack::unit_vector() const {
