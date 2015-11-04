@@ -126,14 +126,9 @@ void testVectorClass() {
   assert(v.get_z() == 3.0f);
 
   /**
-   * Test add() correctly adds two vectors
    * Test operator+ override correctly adds two vectors
    */
-  Vector3dStack vAdd = v.add(v2);
-  assert(vAdd.get_x() == (v.get_x() + v2.get_x()));
-  assert(vAdd.get_y() == (v.get_y() + v2.get_y()));
-  assert(vAdd.get_z() == (v.get_z() + v2.get_z()));
-  Vector3dStack v4 = v + v2;
+  Vector3dStack vAdd = v + v2;
   assert(vAdd.get_x() == (v.get_x() + v2.get_x()));
   assert(vAdd.get_y() == (v.get_y() + v2.get_y()));
   assert(vAdd.get_z() == (v.get_z() + v2.get_z()));
@@ -150,42 +145,27 @@ void testVectorClass() {
   assert(v.magnitude() == sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)));
 
   /**
-   * Test subtract() correctly subtracts two vectors
    * Test operator- override correctly subtracts two vectors
    */
-  Vector3dStack vSubtract = v.subtract(v2);
-  assert(vSubtract.get_x() == (v.get_x() - v2.get_x()));
-  assert(vSubtract.get_y() == (v.get_y() - v2.get_y()));
-  assert(vSubtract.get_z() == (v.get_z() - v2.get_z()));
-  vSubtract = v - v2;
+  Vector3dStack vSubtract = v - v2;
   assert(vSubtract.get_x() == (v.get_x() - v2.get_x()));
   assert(vSubtract.get_y() == (v.get_y() - v2.get_y()));
   assert(vSubtract.get_z() == (v.get_z() - v2.get_z()));
 
   /**
-   * Test multiply() correctly computes a vector multiplied by a scalar value
    * Test operator* override correctly computes a vector multiplied by a scalar value
    */
   scalar = 2.0f;
-  Vector3dStack vMultiply = v.multiply(scalar);
-  assert(vMultiply.get_x() == (v.get_x() * scalar));
-  assert(vMultiply.get_y() == (v.get_y() * scalar));
-  assert(vMultiply.get_z() == (v.get_z() * scalar));
-  vMultiply = v * scalar;
+  Vector3dStack vMultiply = v * scalar;
   assert(vMultiply.get_x() == (v.get_x() * scalar));
   assert(vMultiply.get_y() == (v.get_y() * scalar));
   assert(vMultiply.get_z() == (v.get_z() * scalar));
 
   /**
-   * Test divide() correctly computes a vector divided by a scalar value
    * Test operator/ override correctly computes a vector divided by a scalar value
    */
   scalar = 2.0f;
-  Vector3dStack vDivide = v.divide(scalar);
-  assert(vDivide.get_x() == (v.get_x() / scalar));
-  assert(vDivide.get_y() == (v.get_y() / scalar));
-  assert(vDivide.get_z() == (v.get_z() / scalar));
-  vDivide = v / scalar;
+  Vector3dStack vDivide = v / scalar;
   assert(vDivide.get_x() == (v.get_x() / scalar));
   assert(vDivide.get_y() == (v.get_y() / scalar));
   assert(vDivide.get_z() == (v.get_z() / scalar));
@@ -326,15 +306,9 @@ void testQuaternionClass() {
   assert(q.get_w() == 1.0f);
 
   /**
-   * Test add() correctly adds two quaternions
    * Test operator+ override correctly adds two quaternions
    */
-  Quaternion add = q.add(q2);
-  assert(add.get_x() == (q.get_x() + q2.get_x()));
-  assert(add.get_y() == (q.get_y() + q2.get_y()));
-  assert(add.get_z() == (q.get_z() + q2.get_z()));
-  assert(add.get_w() == (q.get_w() + q2.get_w()));
-  add = q + q2;
+  Quaternion add = q + q2;
   assert(add.get_x() == (q.get_x() + q2.get_x()));
   assert(add.get_y() == (q.get_y() + q2.get_y()));
   assert(add.get_z() == (q.get_z() + q2.get_z()));
@@ -351,50 +325,18 @@ void testQuaternionClass() {
   assert(q.magnitude() == sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(w, 2)));
 
   /**
-   * Test subtract() correctly subtracts two quaternions
    * Test operator- override correctly subtracts two quaternions
    */
-  Quaternion sub = q.subtract(q2);
-  assert(sub.get_x() == (q.get_x() - q2.get_x()));
-  assert(sub.get_y() == (q.get_y() - q2.get_y()));
-  assert(sub.get_z() == (q.get_z() - q2.get_z()));
-  assert(sub.get_w() == (q.get_w() - q2.get_w()));
-  sub = q - q2;
+  Quaternion sub = q - q2;
   assert(sub.get_x() == (q.get_x() - q2.get_x()));
   assert(sub.get_y() == (q.get_y() - q2.get_y()));
   assert(sub.get_z() == (q.get_z() - q2.get_z()));
   assert(sub.get_w() == (q.get_w() - q2.get_w()));
 
   /**
-   * Test multiply() correctly computes a quaternion multiplied by another quaternion
    * Test operator* override correctly computes a quaternion multiplication
    */
-  Quaternion multiply = q.multiply(q2);
-  assert(multiply.get_x() ==
-    (q.get_w() * q2.get_z()) +
-    (q.get_x() * q2.get_y()) -
-    (q.get_y() * q2.get_x()) +
-    (q.get_z() * q2.get_w()));
-
-  assert(multiply.get_y() ==
-    (q.get_w() * q2.get_w()) -
-    (q.get_x() * q2.get_x()) -
-    (q.get_y() * q2.get_y()) -
-    (q.get_z() * q2.get_z()));
-
-  assert(multiply.get_z() ==
-    (q.get_w() * q2.get_x()) +
-    (q.get_x() * q2.get_w()) +
-    (q.get_y() * q2.get_z()) -
-    (q.get_z() * q2.get_y()));
-
-  assert(multiply.get_w() ==
-    (q.get_w() * q2.get_y()) -
-    (q.get_x() * q2.get_z()) +
-    (q.get_y() * q2.get_w()) +
-    (q.get_z() * q2.get_x()));
-
-  multiply = q * q2;
+  Quaternion multiply = q * q2;
 
   assert(multiply.get_x() ==
     (q.get_w() * q2.get_z()) +

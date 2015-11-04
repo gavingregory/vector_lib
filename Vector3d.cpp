@@ -2,6 +2,10 @@
 
 #pragma region Constructors_Destructors
 
+// default constructor
+Vector3dStack::Vector3dStack(): x(0.0), y(0.0), z(0.0) { }
+
+// constructor that takes 3 float paremeters
 Vector3dStack::Vector3dStack(float x, float y, float z) {
   this->x = x;
   this->y = y;
@@ -19,6 +23,7 @@ Vector3dStack::Vector3dStack(const Vector3dStack& rhs) {
   this->z = rhs.z;
 }
 
+// destructor
 Vector3dStack::~Vector3dStack() { }
 
 #pragma endregion Constructors_Destructors
@@ -56,19 +61,19 @@ std::istream& operator>>(std::istream& input, Vector3dStack& vector) {
 }
 
 Vector3dStack Vector3dStack::operator+(const Vector3dStack& rhs) const {
-  return add(rhs);
+  return Vector3dStack(x + rhs.get_x(), y + rhs.get_y(), z + rhs.get_z());
 }
 
 Vector3dStack Vector3dStack::operator-(const Vector3dStack& rhs) const {
-  return subtract(rhs);
+  return Vector3dStack(x - rhs.get_x(), y - rhs.get_y(), z - rhs.get_z());
 }
 
 Vector3dStack Vector3dStack::operator*(const float scalar) const {
-  return multiply(scalar);
+  return Vector3dStack(x*scalar, y*scalar, z*scalar);
 }
 
 Vector3dStack Vector3dStack::operator/(const float scalar) const {
-  return divide(scalar);
+  return Vector3dStack(x / scalar, y / scalar, z / scalar);
 }
 
 Vector3dStack Vector3dStack::operator%(const Vector3dStack& rhs) const {
@@ -115,23 +120,6 @@ float Vector3dStack::magnitude() const {
   static const int POWER = 2;
   // no need to guard against negative input for sqrt, result of n^2 always positive
   return sqrt(pow(x, POWER) + pow(y, POWER) + pow(z, POWER));
-}
-
-Vector3dStack Vector3dStack::add(const Vector3dStack& rhs) const {
-  return Vector3dStack(x + rhs.get_x(), y + rhs.get_y(), z + rhs.get_z());
-}
-
-Vector3dStack Vector3dStack::subtract(const Vector3dStack& rhs) const {
-  return Vector3dStack(x - rhs.get_x(), y - rhs.get_y(), z - rhs.get_z());
-}
-
-Vector3dStack Vector3dStack::multiply(const float scalar) const {
-  return Vector3dStack(x*scalar, y*scalar, z*scalar);
-}
-
-Vector3dStack Vector3dStack::divide(const float scalar) const {
-  // TODO: guard against divide by 0?
-  return Vector3dStack(x / scalar, y / scalar, z / scalar);
 }
 
 Vector3dStack Vector3dStack::vector_product(const Vector3dStack& rhs) const {

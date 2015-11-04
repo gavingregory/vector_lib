@@ -12,6 +12,7 @@
  */
 class Vector3dStack {
 public:
+  Vector3dStack();
   Vector3dStack(const float x, const float y, const float z);
   Vector3dStack(const Vector3dStack& rhs);
   ~Vector3dStack();
@@ -28,11 +29,8 @@ public:
   friend std::istream& operator>>(std::istream& input, Vector3dStack& vector);
   Vector3dStack add(const Vector3dStack& rhs) const;
   Vector3dStack operator+(const Vector3dStack& rhs) const;
-  Vector3dStack subtract(const Vector3dStack& rhs) const;
   Vector3dStack operator-(const Vector3dStack& rhs) const;
-  Vector3dStack multiply(const float scalar) const;
   Vector3dStack operator*(const float scalar) const;
-  Vector3dStack divide(const float scalar) const;
   Vector3dStack operator/(const float scalar) const;
   Vector3dStack vector_product(const Vector3dStack& rhs) const;
   Vector3dStack operator%(const Vector3dStack& rhs) const;

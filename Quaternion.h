@@ -27,11 +27,8 @@ public:
   float magnitude() const;
   friend std::ostream& operator<<(std::ostream& ostr, const Quaternion& quaternion);
   friend std::istream& operator>>(std::istream& input, Quaternion& quaternion);
-  Quaternion add(const Quaternion& rhs) const;
   Quaternion operator+(const Quaternion& rhs) const;
-  Quaternion subtract(const Quaternion& rhs) const;
   Quaternion operator-(const Quaternion& rhs) const;
-  Quaternion multiply(const Quaternion& rhs) const;
   Quaternion operator*(const Quaternion& rhs) const;
 private:
   float* w, *x, *y, *z;
