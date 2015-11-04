@@ -6,6 +6,7 @@
 #include <istream>
 #include <string>
 #include <cmath>
+#include <assert.h>
 
 /**
  * Defines a Vector, and provides basic Vector math operations.

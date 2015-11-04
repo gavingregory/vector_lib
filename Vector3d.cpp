@@ -73,6 +73,8 @@ Vector3dStack Vector3dStack::operator*(const float scalar) const {
 }
 
 Vector3dStack Vector3dStack::operator/(const float scalar) const {
+  // check for divide by 0, arguable whether we would do this for performance reasons:
+  assert(scalar != 0.0f);
   return Vector3dStack(x / scalar, y / scalar, z / scalar);
 }
 

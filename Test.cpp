@@ -187,6 +187,12 @@ void testVectorClass() {
   assert(vDivide.get_z() == (v.get_z() / scalar));
 
   /**
+   * Test operator/ fails with a 0.0f
+   * UNCOMMENT THIS LINE TO TEST DIVIDE BY 0
+   */
+  //Vector3dStack fail = Vector3dStack(1, 2, 3) / 0.0f;
+
+  /**
    * Test vector_product() correctly computes a vector product  of two vectors
    * Test operator% override correctly computes a vector product of two vectors
    */
