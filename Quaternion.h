@@ -21,10 +21,6 @@ public:
   float get_y() const;
   float get_z() const;
   float get_w() const;
-  void set_x(const float x);
-  void set_y(const float y);
-  void set_z(const float z);
-  void set_w(const float w);
   float magnitude() const;
   friend std::ostream& operator<<(std::ostream& ostr, const Quaternion& quaternion);
   friend std::istream& operator>>(std::istream& input, Quaternion& quaternion);

@@ -55,7 +55,7 @@ Quaternion& Quaternion::operator=(const Quaternion& rhs) {
   return *this;
 }
 
-// 
+// equality operator overload
 bool Quaternion::operator==(const Quaternion& rhs) {
   if (this == &rhs) return true;
 
@@ -120,22 +120,6 @@ float Quaternion::get_z() const {
 
 float Quaternion::get_w() const {
   return *w;
-}
-
-void Quaternion::set_x(const float x) {
-  *(this->x) = x;
-}
-
-void Quaternion::set_y(const float y) {
-  *(this->y) = y;
-}
-
-void Quaternion::set_z(const float z) {
-  *(this->z) = z;
-}
-
-void Quaternion::set_w(const float w) {
-  *(this->w) = w;
 }
 
 #pragma endregion Getter_Setters

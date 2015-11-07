@@ -102,18 +102,6 @@ float Vector3dStack::get_z() const {
   return z;
 }
 
-void Vector3dStack::set_x(const float x) {
-  this->x = x;
-}
-
-void Vector3dStack::set_y(const float y) {
-  this->y = y;
-}
-
-void Vector3dStack::set_z(const float z) {
-  this->z = z;
-}
-
 #pragma endregion Getter_Setters
 
 #pragma region Functions
@@ -133,7 +121,7 @@ Vector3dStack Vector3dStack::vector_product(const Vector3dStack& rhs) const {
 }
 
 float Vector3dStack::scalar_product(const Vector3dStack& rhs) const {
-  return (float)((x * rhs.x) + (y * rhs.y) + (z * rhs.z));
+  return ((x * rhs.x) + (y * rhs.y) + (z * rhs.z));
 }
 
 Vector3dStack Vector3dStack::unit_vector() const {
@@ -146,7 +134,10 @@ Vector3dStack Vector3dStack::unit_vector() const {
 }
 
 Vector3dStack Vector3dStack::unit_vector_orthogonal(const Vector3dStack& rhs) const {
-  return vector_product(rhs).unit_vector();
+  Vector3dStack v = vector_product(rhs);
+  std::cout << v << std::endl;
+  
+  return v.unit_vector();
 }
 
 #pragma endregion Functions

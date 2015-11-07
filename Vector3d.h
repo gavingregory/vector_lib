@@ -22,9 +22,6 @@ public:
   float get_x() const;
   float get_y() const;
   float get_z() const;
-  void set_x(const float x);
-  void set_y(const float y);
-  void set_z(const float z);
   float magnitude() const;
   friend std::ostream& operator<<(std::ostream& ostr, const Vector3dStack& vector);
   friend std::istream& operator>>(std::istream& input, Vector3dStack& vector);

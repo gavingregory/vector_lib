@@ -14,18 +14,23 @@ void testQuaternionClass();
  * Main method, calls test functions and tests stream input to both Vector and Quaternion objects.
  *
  * NOTE REGARDING BOTTLENECKS
- * Quaternions will likely be much slower to instantiate than Vector objects as variables for
- * Quaternions are stored on the heap, and require a system call to instantiate.
- * In fact, this could be optimised slightly by creating a single array of floats on the heap 
- * per Quaternion object, limiting the system calls to ONE. x,y,z,w could then reference an
- * element of this array.
- * Originally I had methods such as add(), subtract() and these functions were called from the
- * operator overloads such as operator+(). These were removed to avoid a second unnecessary
- * function call. These functions have been left in for SOME functions however, such as Vector3d's
- * operator% which returns the results of vector_product(). This is to expose human readable
- * functions that may be less confusing than operator% (if preferred).
- * operator<< and operator>> overloads and declared friends and can therefore access variables
- * directly, avoiding a function call to getter methods.
+ * + Quaternions will likely be much slower to instantiate than Vector objects as variables for
+ *   Quaternions are stored on the heap, and require a system call to instantiate.
+ * + In fact, this could be optimised slightly by creating a single array of floats on the heap 
+ *   per Quaternion object, limiting the system calls to ONE. x,y,z,w could then reference an
+ *   element of this array. This would be faster for the following reasons:
+ *     - One system call to instantiate memory on the heap is faster than 4 system calls.
+ *     - The memory locations of each of the variables will be adjacent and allow faster access
+ *       to all of the variables in turn (with pointer arithmetic).
+ * + Originally I had methods such as add(), subtract() and these functions were called from the
+ *   operator overloads such as operator+(). These were removed to avoid a second unnecessary
+ *   function call. These functions have been left in for SOME functions however, such as Vector3d's
+ *   operator% which returns the results of vector_product(). This is to expose human readable
+ *   functions that may be less confusing than operator% (if preferred).
+ * + operator<< and operator>> overloads and declared friends and can therefore access variables
+ *   directly, avoiding a function call to getter methods.
+ * + Do not use getter methods from within the classes, we access member variables directly as this
+ *   avoids a function call.
  */
 int main() {
 
@@ -100,27 +105,10 @@ void testVectorClass() {
   assert(v.get_z() == 3.0f);
 
   /**
-   * Test set_x(), set_y(), set_z()
-   */
-  v2.set_x(4.0f);
-  assert(v2.get_x() == 4.0f);
-  v2.set_y(5.0f);
-  assert(v2.get_y() == 5.0f);
-  v2.set_z(6.0f);
-  assert(v2.get_z() == 6.0f);
-
-  /**
    * Test operator== is correctly overriden
    */
   assert(Vector3dStack(1.0f, 1.0f, 1.0f) == Vector3dStack(1.0f, 1.0f, 1.0f));
   assert(!(Vector3dStack(1.0f, 1.0f, 1.0f) == Vector3dStack(5.5f, 3.3f, 9.9f)));
-
-
-  /**
-   * As v2 was constructed from v, test that a modified value of v2 does not modify
-   * value of v (ie values *copied* correctly!)
-   */
-  assert(v2.get_x() == 4.0f && v.get_x() == 1.0f);
 
   /**
    * Test that operator= copies values correctly
@@ -129,18 +117,7 @@ void testVectorClass() {
   assert(v2.get_x() == 1.0f);
   assert(v2.get_y() == 2.0f);
   assert(v2.get_z() == 3.0f);
-
-  /**
-   * Test that modified v2 values do not affect v (as copy constructor copies ALL private
-   * variables, any pointers NOT copied correctly would yield errors here).
-   */
-  v2.set_x(4.0f);
-  assert(v.get_x() == 1.0f);
-  v2.set_y(5.0f);
-  assert(v.get_y() == 2.0f);
-  v2.set_z(6.0f);
-  assert(v.get_z() == 3.0f);
-
+  
   /**
    * Test operator+ override correctly adds two vectors
    */
@@ -152,13 +129,11 @@ void testVectorClass() {
   /**
    * Test the magnitude() of a Vector is correctly computed
    */
+  Vector3dStack mag = Vector3dStack(3, 4, 5);
   x = 3.0f;
   y = 4.0f;
   z = 5.0f;
-  v.set_x(x); // reset x
-  v.set_y(y); // reset y
-  v.set_z(z); // reset z
-  assert(v.magnitude() == sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)));
+  assert(mag.magnitude() == sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)));
 
   /**
    * Test operator- override correctly subtracts two vectors
@@ -229,13 +204,13 @@ void testVectorClass() {
   assert(unitVector.get_x() == v.get_x() / v.magnitude());
   assert(unitVector.get_y() == v.get_y() / v.magnitude());
   assert(unitVector.get_z() == v.get_z() / v.magnitude());
-  assert(unitVector.magnitude() == 1.0f); // a unit vector must == 1.0f!
+  assert(unitVector.magnitude() >= 0.00009f && unitVector.magnitude() <= 1.00001f); // magnitude should be 1 as it's a unit vector!
 
 
   /**
    * Test unit_vector_orthogonal() correctly returns a valid unit vector which is orthogonal
    */
-  Vector3dStack vOrthogonal = v.unit_vector_orthogonal(v2);
+  Vector3dStack vOrthogonal = v.unit_vector_orthogonal(Vector3dStack(2,3,4));
   assert(v.scalar_product(vOrthogonal) == 0); // scalar product should be 0 if orthogonal!
   assert(v2.scalar_product(vOrthogonal) == 0); // scalar product should be 0 if orthogonal!
   assert(vOrthogonal.magnitude() >= 0.00009f && vOrthogonal.magnitude() <= 1.00001f); // magnitude should be 1 as it's a unit vector!
@@ -291,29 +266,10 @@ void testQuaternionClass() {
   assert(q.get_w() == 1.0f);
 
   /**
-   * Test set_x(), set_y(), set_z(), set_w()
-   */
-  q2.set_x(4.0f);
-  assert(q2.get_x() == 4.0f);
-  q2.set_y(5.0f);
-  assert(q2.get_y() == 5.0f);
-  q2.set_z(6.0f);
-  assert(q2.get_z() == 6.0f);
-  q2.set_w(0.0f);
-  assert(q2.get_w() == 0.0f);
-
-  /**
    * Test operator== is correctly overriden
    */
   assert(Quaternion(1.0f, 1.0f, 1.0f, 1.0f) == Quaternion(1.0f, 1.0f, 1.0f, 1.0f));
   assert(!(Quaternion(1.0f, 1.0f, 1.0f, 1.0f) == Quaternion(5.5f, 3.3f, 9.9f, 1.0f)));
-
-
-  /**
-   * As q2 was constructed from q, test that a modified value of q2 does not modify
-   * value of v (ie pointer values *copied* correctly!)
-   */
-  assert(q2.get_x() == 4.0f && q.get_x() == 1.0f);
 
   /**
    * Test that operator= copies values correctly
@@ -323,19 +279,6 @@ void testQuaternionClass() {
   assert(q2.get_y() == 2.0f);
   assert(q2.get_z() == 3.0f);
   assert(q2.get_w() == 1.0f);
-
-  /**
-   * Test that modified q2 values do not affect q (as copy constructor copies ALL private
-   * variables, any pointers NOT copied correctly would yield errors here).
-   */
-  q2.set_x(4.0f);
-  assert(q.get_x() == 1.0f);
-  q2.set_y(5.0f);
-  assert(q.get_y() == 2.0f);
-  q2.set_z(6.0f);
-  assert(q.get_z() == 3.0f);
-  q2.set_w(5.0f);
-  assert(q.get_w() == 1.0f);
 
   /**
    * Test operator+ override correctly adds two quaternions
