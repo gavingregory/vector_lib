@@ -214,6 +214,47 @@ void testVectorClass() {
   assert(v.scalar_product(vOrthogonal) == 0); // scalar product should be 0 if orthogonal!
   assert(v2.scalar_product(vOrthogonal) == 0); // scalar product should be 0 if orthogonal!
   assert(vOrthogonal.magnitude() >= 0.00009f && vOrthogonal.magnitude() <= 1.00001f); // magnitude should be 1 as it's a unit vector!
+
+  /**
+   * Test += operator overload
+   */
+  Vector3dStack v5 = Vector3dStack(1, 1, 1);
+  Vector3dStack v6 = Vector3dStack(2, 2, 2);
+  v5 += v6;
+  assert(v5 == Vector3dStack(1, 1, 1) + Vector3dStack(2, 2, 2));
+
+  /**
+   * Test -= operator overload
+   */
+  Vector3dStack v7 = Vector3dStack(1, 1, 1);
+  Vector3dStack v8 = Vector3dStack(2, 2, 2);
+  v7 -= v8;
+  assert(v7 == Vector3dStack(1, 1, 1) - Vector3dStack(2, 2, 2));
+
+  /**
+   * Test *= operator overload
+   */
+  Vector3dStack v9 = Vector3dStack(2, 2, 2);
+  v9 *= 2.0f;
+  assert(v9 == Vector3dStack(2, 2, 2) * 2.0f);
+
+  /**
+  * Test /= operator overload
+  */
+  Vector3dStack v10 = Vector3dStack(2, 2, 2);
+  v10 /= 2.0f;
+  assert(v10 == Vector3dStack(2, 2, 2) / 2.0f);
+
+  /**
+   * Test %= operator overload
+   */
+  Vector3dStack v11 = Vector3dStack(2, 2, 2);
+  Vector3dStack v12 = Vector3dStack(4, 4, 4);
+  v11 %= v12;
+  assert(v11 == Vector3dStack(2, 2, 2) % Vector3dStack(4,4,4));
+
+  
+
 }
 
 /**

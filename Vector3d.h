@@ -25,13 +25,17 @@ public:
   float magnitude() const;
   friend std::ostream& operator<<(std::ostream& ostr, const Vector3dStack& vector);
   friend std::istream& operator>>(std::istream& input, Vector3dStack& vector);
-  Vector3dStack add(const Vector3dStack& rhs) const;
   Vector3dStack operator+(const Vector3dStack& rhs) const;
   Vector3dStack operator-(const Vector3dStack& rhs) const;
   Vector3dStack operator*(const float scalar) const;
   Vector3dStack operator/(const float scalar) const;
   Vector3dStack vector_product(const Vector3dStack& rhs) const;
   Vector3dStack operator%(const Vector3dStack& rhs) const;
+  Vector3dStack operator+=(const Vector3dStack& rhs);
+  Vector3dStack operator-=(const Vector3dStack& rhs);
+  Vector3dStack operator*=(const float scalar);
+  Vector3dStack operator/=(const float scalar);
+  Vector3dStack operator%=(const Vector3dStack& rhs);
   float scalar_product(const Vector3dStack& rhs) const;
   float operator*(const Vector3dStack& rhs) const;
   Vector3dStack unit_vector() const;

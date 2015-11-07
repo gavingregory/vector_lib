@@ -82,6 +82,31 @@ Vector3dStack Vector3dStack::operator%(const Vector3dStack& rhs) const {
   return vector_product(rhs);
 }
 
+Vector3dStack Vector3dStack::operator+=(const Vector3dStack& rhs) {
+  *this = ((*this) + rhs);
+  return *this;
+}
+
+Vector3dStack Vector3dStack::operator-=(const Vector3dStack& rhs) {
+  *this = ((*this) - rhs);
+  return *this;
+}
+
+Vector3dStack Vector3dStack::operator*=(const float scalar) {
+  *this = ((*this) * scalar);
+  return *this;
+}
+
+Vector3dStack Vector3dStack::operator/=(const float scalar) {
+  *this = ((*this) / scalar);
+  return *this;
+}
+
+Vector3dStack Vector3dStack::operator%=(const Vector3dStack& rhs) {
+  *this = ((*this) % rhs);
+  return *this;
+}
+
 float Vector3dStack::operator*(const Vector3dStack& rhs) const {
   return scalar_product(rhs);
 }
