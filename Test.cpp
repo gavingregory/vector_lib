@@ -111,6 +111,15 @@ void testVectorClass() {
   assert(!(Vector3dStack(1.0f, 1.0f, 1.0f) == Vector3dStack(5.5f, 3.3f, 9.9f)));
 
   /**
+   * Test operator!= overload is correct
+   */
+
+  assert(Vector3dStack(1.0f, 1.0f, 1.0f) != Vector3dStack(1.0f, 1.0f, 2.0f));
+  assert(Vector3dStack(1.0f, 1.0f, 1.0f) != Vector3dStack(1.0f, 2.0f, 1.0f));
+  assert(Vector3dStack(1.0f, 1.0f, 1.0f) != Vector3dStack(2.0f, 1.0f, 1.0f));
+  assert(!(Vector3dStack(1.0f, 1.0f, 1.0f) != Vector3dStack(1.0f, 1.0f, 1.0f)));
+
+  /**
    * Test that operator= copies values correctly
    */
   v2 = v;
@@ -307,10 +316,16 @@ void testQuaternionClass() {
   assert(q.get_w() == 1.0f);
 
   /**
-   * Test operator== is correctly overriden
+   * Test operator== is correctly overridden
+   * Test operator!= is also correctly overridden
    */
   assert(Quaternion(1.0f, 1.0f, 1.0f, 1.0f) == Quaternion(1.0f, 1.0f, 1.0f, 1.0f));
   assert(!(Quaternion(1.0f, 1.0f, 1.0f, 1.0f) == Quaternion(5.5f, 3.3f, 9.9f, 1.0f)));
+  assert(Quaternion(1.0f, 1.0f, 1.0f, 1.0f) != Quaternion(1.0f, 1.0f, 1.0f, 2.0f));
+  assert(Quaternion(1.0f, 1.0f, 1.0f, 1.0f) != Quaternion(1.0f, 1.0f, 2.0f, 1.0f));
+  assert(Quaternion(1.0f, 1.0f, 1.0f, 1.0f) != Quaternion(1.0f, 2.0f, 1.0f, 1.0f));
+  assert(Quaternion(1.0f, 1.0f, 1.0f, 1.0f) != Quaternion(2.0f, 1.0f, 1.0f, 1.0f));
+  assert(!(Quaternion(1.0f, 1.0f, 1.0f, 1.0f) != Quaternion(1.0f, 1.0f, 1.0f, 1.0f)));
 
   /**
    * Test that operator= copies values correctly
@@ -384,5 +399,28 @@ void testQuaternionClass() {
   Quaternion commutative1 = q * q2;
   Quaternion commutative2 = q2 * q;
   assert(!(commutative1 == commutative2));
+
+  /**
+  * Test += operator overload
+  */
+  Quaternion v5 = Quaternion(1, 1, 1, 1);
+  Quaternion v6 = Quaternion(2, 2, 2, 2);
+  v5 += v6;
+  assert(v5 == Quaternion(1, 1, 1, 1) + Quaternion(2, 2, 2, 2));
+
+  /**
+  * Test -= operator overload
+  */
+  Quaternion v7 = Quaternion(1, 1, 1, 1);
+  Quaternion v8 = Quaternion(2, 2, 2, 2);
+  v7 -= v8;
+  assert(v7 == Quaternion(1, 1, 1, 1) - Quaternion(2, 2, 2, 2));
+
+  /**
+  * Test *= operator overload
+  */
+  Quaternion v9 = Quaternion(2, 2, 2, 2);
+  v9 *= 2.0f;
+  assert(v9 == Quaternion(2, 2, 2, 2) * 2.0f);
 
 }

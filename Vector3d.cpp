@@ -50,6 +50,38 @@ bool Vector3dStack::operator==(const Vector3dStack& rhs) {
   return false;
 }
 
+bool Vector3dStack::operator!=(const Vector3dStack& rhs) {
+  if (this == &rhs) return false;
+
+  if (this->x == rhs.x &&
+    this->y == rhs.y &&
+    this->z == rhs.z)
+    return false;
+  return true;
+}
+
+Vector3dStack Vector3dStack::operator--() {
+  x--; y--; z--;
+  return *this;
+}
+
+Vector3dStack Vector3dStack::operator--(int) {
+  Vector3dStack tmp(*this);
+  operator--();
+  return tmp;
+}
+
+Vector3dStack Vector3dStack::operator++() {
+  x++; y++; z++;
+  return *this;
+}
+
+Vector3dStack Vector3dStack::operator++(int) {
+  Vector3dStack tmp(*this);
+  operator++();
+  return tmp;
+}
+
 std::ostream& operator<<(std::ostream& ostr, const Vector3dStack& vector) {
   ostr << "(x,y,z): (" << vector.x << "," << vector.y << "," << vector.z << ")";
   return ostr;

@@ -67,6 +67,40 @@ bool Quaternion::operator==(const Quaternion& rhs) {
   return false;
 }
 
+// not equality operator overload
+bool Quaternion::operator!=(const Quaternion& rhs) {
+  if (this == &rhs) return false;
+
+  if (*(this->x) == *(rhs.x) &&
+    *(this->y) == *(rhs.y) &&
+    *(this->z) == *(rhs.z) &&
+    *(this->w) == *(rhs.w))
+    return false;
+  return true;
+}
+
+Quaternion Quaternion::operator--() {
+  (*x)--; (*y)--; (*z)--; (*w)--;
+  return *this;
+}
+
+Quaternion Quaternion::operator--(int) {
+  Quaternion tmp(*this);
+  operator--();
+  return tmp;
+}
+
+Quaternion Quaternion::operator++() {
+  (*x)++; (*y)++; (*z)++; (*w)++;
+  return *this;
+}
+
+Quaternion Quaternion::operator++(int) {
+  Quaternion tmp(*this);
+  operator++();
+  return tmp;
+}
+
 std::ostream& operator<<(std::ostream& ostr, const Quaternion& quaternion) {
   ostr << "(w,x,y,z): (" << *quaternion.w << "," << *quaternion.x << "," << *quaternion.y << "," << *quaternion.z << ")";
   return ostr;
@@ -100,6 +134,21 @@ Quaternion Quaternion::operator*(const Quaternion& rhs) const {
     *w * rhs.get_x() + *x * rhs.get_w() + *y * rhs.get_z() - *z * rhs.get_y(),
     *w * rhs.get_y() - *x * rhs.get_z() + *y * rhs.get_w() + *z * rhs.get_x()
     );
+}
+
+Quaternion Quaternion::operator+=(const Quaternion& rhs) {
+  *this = ((*this) + rhs);
+  return *this;
+}
+
+Quaternion Quaternion::operator-=(const Quaternion& rhs) {
+  *this = ((*this) - rhs);
+  return *this;
+}
+
+Quaternion Quaternion::operator*=(const Quaternion& rhs) {
+  *this = ((*this) * rhs);
+  return *this;
 }
 
 #pragma endregion Operator_Overloads

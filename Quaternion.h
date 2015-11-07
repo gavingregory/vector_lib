@@ -17,6 +17,7 @@ public:
   ~Quaternion();
   Quaternion& operator=(const Quaternion& rhs);
   bool operator==(const Quaternion& rhs);
+  bool operator!=(const Quaternion& rhs);
   float get_x() const;
   float get_y() const;
   float get_z() const;
@@ -27,6 +28,13 @@ public:
   Quaternion operator+(const Quaternion& rhs) const;
   Quaternion operator-(const Quaternion& rhs) const;
   Quaternion operator*(const Quaternion& rhs) const;
+  Quaternion operator+=(const Quaternion& rhs);
+  Quaternion operator-=(const Quaternion& rhs);
+  Quaternion operator*=(const Quaternion& rhs);
+  Quaternion operator--();
+  Quaternion operator--(int);
+  Quaternion operator++();
+  Quaternion operator++(int);
 private:
   float *w, *x, *y, *z;
 };

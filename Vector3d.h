@@ -19,6 +19,7 @@ public:
   ~Vector3dStack();
   Vector3dStack& operator=(const Vector3dStack& rhs);
   bool operator==(const Vector3dStack& rhs);
+  bool operator!=(const Vector3dStack& rhs);
   float get_x() const;
   float get_y() const;
   float get_z() const;
@@ -36,6 +37,10 @@ public:
   Vector3dStack operator*=(const float scalar);
   Vector3dStack operator/=(const float scalar);
   Vector3dStack operator%=(const Vector3dStack& rhs);
+  Vector3dStack operator--();
+  Vector3dStack operator--(int);
+  Vector3dStack operator++();
+  Vector3dStack operator++(int);
   float scalar_product(const Vector3dStack& rhs) const;
   float operator*(const Vector3dStack& rhs) const;
   Vector3dStack unit_vector() const;
