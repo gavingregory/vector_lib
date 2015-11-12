@@ -268,8 +268,19 @@ void testVectorClass() {
   v11 %= v12;
   assert(v11 == Vector3dStack(2, 2, 2) % Vector3dStack(4,4,4));
 
-  
-
+  /**
+   * Test ++ pre and post increment
+   */
+  Vector3dStack v13 = Vector3dStack(1, 1, 1);
+  assert(v13.get_x() == 1.0f && v13.get_y() == 1.0f && v13.get_z() == 1.0f);
+  Vector3dStack v14 = ++v13;
+  // both v13 and v14 should have 2.0f as floats it should have been post incremented
+  assert(v14.get_x() == 2.0f && v14.get_y() == 2.0f && v14.get_z() == 2.0f);
+  assert(v13.get_x() == 2.0f && v13.get_y() == 2.0f && v13.get_z() == 2.0f);
+  Vector3dStack v15 = v13++;
+  // v15 should have been assigned values from x, then x increments
+  assert(v15.get_x() == 2.0f && v15.get_y() == 2.0f && v15.get_z() == 2.0f);
+  assert(v13.get_x() == 3.0f && v13.get_y() == 3.0f && v13.get_z() == 3.0f);
 }
 
 /**
@@ -429,4 +440,17 @@ void testQuaternionClass() {
   v9 *= 2.0f;
   assert(v9 == Quaternion(2, 2, 2, 2) * 2.0f);
 
+  /**
+  * Test ++ pre and post increment
+  */
+  Quaternion q10 = Quaternion(1, 1, 1, 1);
+  assert(q10.get_x() == 1.0f && q10.get_y() == 1.0f && q10.get_z() == 1.0f);
+  Quaternion q11 = ++q10;
+  // both q10 and q11 should have 2.0f as floats it should have been post incremented
+  assert(q11.get_x() == 2.0f && q11.get_y() == 2.0f && q11.get_z() == 2.0f && q11.get_z() == 2.0f);
+  assert(q10.get_x() == 2.0f && q10.get_y() == 2.0f && q10.get_z() == 2.0f && q10.get_z() == 2.0f);
+  Quaternion q12 = q10++;
+  // q12 should have been assigned values from x, then x increments
+  assert(q12.get_x() == 2.0f && q12.get_y() == 2.0f && q12.get_z() == 2.0f && q12.get_z() == 2.0f);
+  assert(q10.get_x() == 3.0f && q10.get_y() == 3.0f && q10.get_z() == 3.0f && q10.get_z() == 3.0f);
 }
