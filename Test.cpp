@@ -281,6 +281,20 @@ void testVectorClass() {
   // v15 should have been assigned values from x, then x increments
   assert(v15.get_x() == 2.0f && v15.get_y() == 2.0f && v15.get_z() == 2.0f);
   assert(v13.get_x() == 3.0f && v13.get_y() == 3.0f && v13.get_z() == 3.0f);
+
+  /**
+  * Test ++ pre and post decrement
+  */
+  v13 = Vector3dStack(3, 3, 3);
+  assert(v13.get_x() == 3.0f && v13.get_y() == 3.0f && v13.get_z() == 3.0f);
+  v14 = --v13;
+  // both v13 and v14 should have 2.0f as floats it should have been post decremented
+  assert(v14.get_x() == 2.0f && v14.get_y() == 2.0f && v14.get_z() == 2.0f);
+  assert(v13.get_x() == 2.0f && v13.get_y() == 2.0f && v13.get_z() == 2.0f);
+  v15 = v13--;
+  // v15 should have been assigned values from x, then x decrements
+  assert(v15.get_x() == 2.0f && v15.get_y() == 2.0f && v15.get_z() == 2.0f);
+  assert(v13.get_x() == 1.0f && v13.get_y() == 1.0f && v13.get_z() == 1.0f);
 }
 
 /**
@@ -444,13 +458,27 @@ void testQuaternionClass() {
   * Test ++ pre and post increment
   */
   Quaternion q10 = Quaternion(1, 1, 1, 1);
-  assert(q10.get_x() == 1.0f && q10.get_y() == 1.0f && q10.get_z() == 1.0f);
+  assert(q10.get_x() == 1.0f && q10.get_y() == 1.0f && q10.get_z() == 1.0f && q10.get_w() == 1.0f);
   Quaternion q11 = ++q10;
   // both q10 and q11 should have 2.0f as floats it should have been post incremented
-  assert(q11.get_x() == 2.0f && q11.get_y() == 2.0f && q11.get_z() == 2.0f && q11.get_z() == 2.0f);
-  assert(q10.get_x() == 2.0f && q10.get_y() == 2.0f && q10.get_z() == 2.0f && q10.get_z() == 2.0f);
+  assert(q11.get_x() == 2.0f && q11.get_y() == 2.0f && q11.get_z() == 2.0f && q11.get_w() == 2.0f);
+  assert(q10.get_x() == 2.0f && q10.get_y() == 2.0f && q10.get_z() == 2.0f && q10.get_w() == 2.0f);
   Quaternion q12 = q10++;
   // q12 should have been assigned values from x, then x increments
-  assert(q12.get_x() == 2.0f && q12.get_y() == 2.0f && q12.get_z() == 2.0f && q12.get_z() == 2.0f);
-  assert(q10.get_x() == 3.0f && q10.get_y() == 3.0f && q10.get_z() == 3.0f && q10.get_z() == 3.0f);
+  assert(q12.get_x() == 2.0f && q12.get_y() == 2.0f && q12.get_z() == 2.0f && q12.get_w() == 2.0f);
+  assert(q10.get_x() == 3.0f && q10.get_y() == 3.0f && q10.get_z() == 3.0f && q10.get_w() == 3.0f);
+
+  /**
+  * Test -- pre and post decrement
+  */
+  q10 = Quaternion(3, 3, 3, 3);
+  assert(q10.get_x() == 3.0f && q10.get_y() == 3.0f && q10.get_z() == 3.0f && q10.get_w() == 3.0f);
+  q11 = --q10;
+  // both q10 and q11 should have 2.0f as floats it should have been post decremented
+  assert(q11.get_x() == 2.0f && q11.get_y() == 2.0f && q11.get_z() == 2.0f && q11.get_w() == 2.0f);
+  assert(q10.get_x() == 2.0f && q10.get_y() == 2.0f && q10.get_z() == 2.0f && q10.get_w() == 2.0f);
+  q12 = q10--;
+  // q12 should have been assigned values from x, then x decrements
+  assert(q12.get_x() == 2.0f && q12.get_y() == 2.0f && q12.get_z() == 2.0f && q12.get_w() == 2.0f);
+  assert(q10.get_x() == 1.0f && q10.get_y() == 1.0f && q10.get_z() == 1.0f && q10.get_w() == 1.0f);
 }
