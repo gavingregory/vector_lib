@@ -15,13 +15,17 @@ void testQuaternionClass();
  *
  * NOTE REGARDING BOTTLENECKS
  * + Quaternions will likely be much slower to instantiate than Vector objects as variables for
- *   Quaternions are stored on the heap, and require a system call to instantiate.
- * + In fact, this could be optimised slightly by creating a single array of floats on the heap 
+ *   Quaternions are stored on the heap, and require a system call to allocate heap memory.
+ * + Where possible, values have been initialised in 'intialiser lists' instead of constructor
+ *   method. This is faster as any value initialised in constructor has to be first 'created'
+ *   and then the value is overwritten in the constructor (two writes overall). With 'initialiser
+ *   lists, the value is written when created, so one write operation overall.
+ * + Quaternions has be optimised slightly by creating a single array of floats on the heap 
  *   per Quaternion object, limiting the system calls to ONE. x,y,z,w could then reference an
- *   element of this array. This would be faster for the following reasons:
+ *   element of this array. This is potentially faster for the following reasons:
  *     - One system call to instantiate memory on the heap is faster than 4 system calls.
- *     - The memory locations of each of the variables will be adjacent and allow faster access
- *       to all of the variables in turn (with pointer arithmetic).
+ *     - The memory locations of each of the variables are adjacent and allow faster access
+ *       to all of the variables in turn (with pointer arithmetic, or array indexes).
  * + Originally I had methods such as add(), subtract() and these functions were called from the
  *   operator overloads such as operator+(). These were removed to avoid a second unnecessary
  *   function call. These functions have been left in for SOME functions however, such as Vector3d's
@@ -31,6 +35,8 @@ void testQuaternionClass();
  *   directly, avoiding a function call to getter methods.
  * + Do not use getter methods from within the classes, we access member variables directly as this
  *   avoids a function call.
+ * + math.pow() is apparently slower than x*x, so have used x*x where appropriate for speed:
+ * http://stackoverflow.com/questions/2940367/what-is-more-efficient-using-pow-to-square-or-just-multiply-it-with-itself
  */
 int main() {
 

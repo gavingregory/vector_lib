@@ -36,7 +36,7 @@ public:
   Quaternion operator++();
   Quaternion operator++(int);
 private:
-  float *w, *x, *y, *z;
+  float *a;
 };
 
 #endif
